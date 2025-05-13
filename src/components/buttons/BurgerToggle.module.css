@@ -1,0 +1,58 @@
+.checkbox {
+  display: none;
+}
+
+.burger {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 35px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.burger .bar {
+  width: 100%;
+  height: 4px;
+  background-color: currentColor;
+  border-radius: 10px;
+  transition:
+    transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6),
+    opacity 0.3s ease;
+  position: relative;
+}
+
+.checkbox:checked + .burger {
+  transform: rotate(-180deg);
+  animation: point-left 1s infinite;
+}
+
+.checkbox:checked + .burger .bar:nth-child(2) {
+  transform: translate(0px, 10px);
+  opacity: 0;
+}
+
+.checkbox:checked + .burger .bar:nth-child(3) {
+  transform: translate(0px, -10px);
+  transition-delay: 0s;
+}
+
+.checkbox:checked + .burger .bar:nth-child(1) {
+  transform: rotate(45deg) scale(0.7);
+}
+
+.checkbox:checked + .burger .bar:nth-child(3) {
+  transform: rotate(-45deg) scale(0.7);
+}
+
+@keyframes point-left {
+  0%,
+  100% {
+    left: 0px;
+  }
+  50% {
+    left: -5px;
+  }
+}
