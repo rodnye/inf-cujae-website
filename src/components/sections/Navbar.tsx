@@ -8,7 +8,7 @@ export const Navbar: React.FC = () => {
   const [openSlide, setOpenSlide] = useState(false);
   return (
     <>
-      <nav className="flex flex-col">
+      <nav className="flex w-full flex-col">
         {/** el pl-20 es para cubrir el espacio BurgerToggle */}
         <div className="relative w-full bg-primary bg-opacity-95 p-6 pl-20">
           s
@@ -24,7 +24,7 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      <div className="absolute left-0 top-0 z-10 h-full w-full">
+      <div className="z-20 text-slate-50">
         <SlideBar open={openSlide}>
           <ul className="flex h-full w-full flex-col items-center space-y-4 bg-primary p-6 pt-20">
             <li>
