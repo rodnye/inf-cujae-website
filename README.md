@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Sitio Web de la Facultad de Ingeniería Informática - CUJAE
 
-## Getting Started
+> 🛠️ [Proyecto en desarrollo...] 🌱
 
-First, run the development server:
+Version web moderna del sitio de la Facultad de Ingeniería Informática de la CUJAE. Contruido para la JCE de la Universidad
+
+## ✨ Stack
+
+- **React 19** + Next.js 15 basado en la arquitectura App Router
+- Tailwind CSS
+- Framer Motion para animaciones
+- TypeScript
+- ESLint + Prettier para calidad de código
+- pnpm como gestor de paquetes
+
+## ⚙️ Instalación
+
+1. Clonar el repositorio
+2. Instalar dependencias:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+# o
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚦 Comandos útiles
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Comando       | Descripción                                           |
+| ------------- | ----------------------------------------------------- |
+| `pnpm dev`    | Inicia servidor de desarrollo (http://localhost:3000) |
+| `pnpm build`  | Genera versión de producción para deploy              |
+| `pnpm start`  | Inicia servidor de producción 🚀                      |
+| `pnpm lint`   | Ejecuta análisis de código                            |
+| `pnpm format` | Formatea el código automáticamente                    |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🌐 Desarrollo
 
-## Learn More
+1. Iniciar el entorno:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Abrir en el navegador:  
+   🔗 [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🤝 Contribución
 
-## Deploy on Vercel
+Sigue las guías de estilo y asegúrate de ejecutar los linters antes de enviar cambios.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm format && pnpm lint
+```
