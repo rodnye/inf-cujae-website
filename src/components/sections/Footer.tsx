@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import logoInforImg from '@/assets/logo_infor.png';
 import instagramIcon from '@/assets/instagram-icon.svg';
+import telegramIcon from '@/assets/telegram-icon.svg';
+
 export default function Footer() {
   return (
     <footer className="relative mt-auto w-full bg-primary bg-opacity-95 px-5 py-60 sm:px-6 sm:py-12">
@@ -11,16 +13,24 @@ export default function Footer() {
               className="w-20 rounded-lg transition-all duration-300 hover:scale-105"
               alt="logoInfor"
               src={logoInforImg}
-              width={3000}
+              width={300}
               height={1000}
             />
           </div>
 
           <div className="left-100 top-37 absolute translate-y-8 transform">
             <Image
-              className="w-10 transition-all duration-300 hover:scale-105"
+              className="w-8 transition-all duration-300 hover:scale-105"
               alt="instagramIcon"
               src={instagramIcon}
+            />
+          </div>
+
+          <div className="left-100 top-100 absolute translate-y-20 transform">
+            <Image
+              className="w-8 transition-all duration-300 hover:scale-105"
+              alt="telegramIcon"
+              src={telegramIcon}
             />
           </div>
 
