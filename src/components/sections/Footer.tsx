@@ -32,6 +32,17 @@ export default function Footer() {
               alt="telegramIcon"
               src={telegramIcon}
             />
+            <div className="mx-10 flex -translate-y-7">
+              <div>telegram: </div>
+              <a
+                href="https://web.telegram.org/k/#@informaticaCujae"
+                target="_blank" // Abre en nueva pestaña
+                rel="noopener noreferrer" // Seguridad para enlaces externos
+                className="mx-2 cursor-pointer text-[#FFEA00] hover:underline"
+              >
+                @informaticaCujae
+              </a>
+            </div>
           </div>
 
           {/* Contenido principal con padding superior para evitar solapamiento */}
