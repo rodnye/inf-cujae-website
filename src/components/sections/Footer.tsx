@@ -3,7 +3,7 @@ import logoInforImg from '@/assets/logo_infor.png';
 import instagramIcon from '@/assets/instagram-icon.svg';
 import telegramIcon from '@/assets/telegram-icon.svg';
 
-export default function Footer() {
+export const Footer: React.FC = () => {
   return (
     <footer className="relative mt-auto w-full bg-primary bg-opacity-95 px-5 py-60 sm:px-6 sm:py-12">
       <div className="mx-auto w-full p-5 md:max-w-screen-2xl">
@@ -47,11 +47,10 @@ export default function Footer() {
 
           {/* Contenido principal con padding superior para evitar solapamiento */}
           <div className="w-full pt-16 md:pt-20">
-            {' '}
             <div className="flex flex-col justify-between gap-8 text-white sm:gap-6 md:flex-row md:flex-wrap md:gap-10"></div>
           </div>
         </div>
       </div>
     </footer>
   );
-}
+};

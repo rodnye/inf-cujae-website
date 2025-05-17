@@ -14,7 +14,7 @@ export const SlideBar: React.FC<Props> = ({ children, open }) => {
           animate={{ left: 0 }}
           exit={{ left: '-100%' }}
           transition={{ duration: 0.3, delay: 0, ease: 'easeInOut' }}
-          className="absolute top-0 h-full"
+          className="fixed top-0 z-20 h-full"
         >
           <div className="h-full w-full flex-col">{children}</div>
         </motion.div>
