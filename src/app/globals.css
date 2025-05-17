@@ -7,3 +7,18 @@ body {
   width: 100%;
   height: 100%;
 }
+
+:root {
+  /* TODO: colocar paleta de colores adecuada */
+  --color-body: #dedede;
+  --color-primary: #222;
+  --color-secondary: #c49d34;
+  --color-accent: #6366f1;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-muted: #94a3b8;
+  --color-on-body: #232323;
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #ffffff;
+}

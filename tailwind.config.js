@@ -4,8 +4,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        body: '#dedede',
-        primary: '#222',
+        // colores base
+        body: 'var(--color-body)',
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
+
+        // extras
+        accent: 'var(--color-accent)',
+        success: 'var(--color-success)',
+        warning: 'var(--color-warning)',
+        danger: 'var(--color-danger)',
+        muted: 'var(--color-muted)',
+
+        // texto/iconos en los colores bases
+        'on-body': 'var(--color-on-body)',
+        'on-primary': 'var(--color-on-primary)',
+        'on-secondary': 'var(--color-on-secondary)',
       },
     },
   },
