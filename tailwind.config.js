@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         // colores base
         body: 'var(--color-body)',
+        'body-end': 'var(--color-body-end)',
         primary: 'var(--color-primary)',
         secondary: 'var(--color-secondary)',
 
