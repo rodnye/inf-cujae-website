@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
   return (
     <div className="flex flex-col items-center p-6">
       <h1 className="m-3 text-2xl font-bold"> Login de administración </h1>
-      <div className="flex flex-col rounded-md border-solid border-primary p-3">
+      <div className="flex flex-col rounded-md border-solid border-on-body p-3">
         <div className="flex items-center justify-between">
           <p>Clave:</p>
           <TextField
