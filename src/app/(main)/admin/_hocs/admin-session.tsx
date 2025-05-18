@@ -1,8 +1,8 @@
-import { verifyAdminSession } from '@/services/login';
+import { verifyAdminSession } from '@/services/admin-session';
 import { getCookies } from 'next-client-cookies/server';
 import { redirect } from 'next/navigation';
 
-/**
+/**a
  * Higher Order Component para verificar la sesión de administrador
  */
 export const withAdminSession = (Page: () => React.JSX.Element) => {
