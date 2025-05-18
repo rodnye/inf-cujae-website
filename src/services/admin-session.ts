@@ -2,9 +2,7 @@
 
 import { randomUUID } from 'crypto';
 import { cookies } from 'next/headers';
-import { connectToRedis } from './redis-storage';
-
-const redis = connectToRedis();
+import { connectRedis, disconnectRedis } from './redis-storage';
 
 /**
  * Verificar API Key de administrador
@@ -18,16 +16,19 @@ export const verifyApiKey = async (apiKey: string) => {
  * Verificar el token de administración enviado por cookies (admin-session)
  */
 export const verifyAdminSession = async (token: string) => {
+  const redis = await connectRedis();
   let session = await redis.hget('sessions', token);
 
   if (session) {
     if (Number(session) > Date.now()) {
+      disconnectRedis();
       return true;
     }
 
     redis.hdel('sessions', token);
   }
 
+  disconnectRedis();
   return false;
 };
 
@@ -36,10 +37,12 @@ export const verifyAdminSession = async (token: string) => {
  */
 export const createAdminSession = async () => {
   const token = randomUUID();
-  const cookiesStore = await cookies();
 
+  const redis = await connectRedis();
   await redis.hset('sessions', token, Date.now() + 60 * 60 * 60 * 1000);
+  disconnectRedis();
 
+  const cookiesStore = await cookies();
   cookiesStore.set({
     name: 'admin-token',
     value: token,

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createAdminSession, verifyApiKey } from '@/services/login';
+import { createAdminSession, verifyApiKey } from '@/services/admin-session';
 
 interface LoginBody {
   apiKey: string;

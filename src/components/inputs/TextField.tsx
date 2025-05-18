@@ -5,25 +5,46 @@ interface Props {
   placeholder?: string;
   value: string;
   type?: string;
+  name?: string;
   onChange: (value: string) => void;
   className?: string;
+  required?: boolean;
+  rows?: number;
 }
 
 export const TextField: React.FC<Props> = ({
   type = 'text',
-  placeholder,
+  placeholder = '...',
+  name,
   value,
   onChange,
   className = '',
+  required,
+  rows = 1,
 }) => {
   return (
     <div className={styles.container + ' ' + className}>
-      <input
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        type={type}
-      />
+      {rows > 1 ? (
+        <textarea
+          className={styles.input}
+          placeholder={placeholder}
+          value={value}
+          name={name}
+          onChange={(e) => onChange(e.target.value)}
+          rows={rows}
+          required={required}
+        />
+      ) : (
+        <input
+          className={styles.input}
+          placeholder={placeholder}
+          value={value}
+          name={name}
+          onChange={(e) => onChange(e.target.value)}
+          type={type}
+          required={required}
+        />
+      )}
     </div>
   );
 };
