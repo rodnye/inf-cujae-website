@@ -1,35 +1,74 @@
-interface HeroSectionProps {
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+
+interface HeroCardProps {
   title: string;
-  image: string;
   description: string;
+  image: string;
+  url: string;
 }
 
-export const HeroCard: React.FC<HeroSectionProps> = ({
-  image,
-  title,
-  description,
-}) => {
+export function HeroCard({ title, description, image, url }: HeroCardProps) {
   return (
-    <div className="group relative flex min-h-[220px] flex-col items-start overflow-hidden rounded-2xl border border-[#36454F]/40 bg-[#36454F]/20 p-8 shadow-xl backdrop-blur-md transition-all duration-300 hover:border-[#36454F]/60 hover:shadow-[#36454F]/30 md:flex-row md:items-center">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#36454F]/40 to-[#36454F]/60 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+    <motion.div
+      whileHover={{
+        scale: 1.02,
+        backgroundColor: 'rgba(var(--color-secondary-rgb), 0.2)',
+      }}
+      transition={{ duration: 0.3 }}
+      className="border-secondary/30 bg-secondary/10 overflow-hidden rounded-lg border shadow-lg"
+    >
+      <div className="flex flex-col md:flex-row">
+        <div className="w-full md:w-1/3">
+          <div className="relative h-60 overflow-hidden md:h-full">
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.7 }}
+              className="h-full w-full"
+            >
+              <Image
+                src={image}
+                alt={title}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover"
+              />
+            </motion.div>
+          </div>
+        </div>
 
-      <div className="mr-8 flex-shrink-0">
-        <img
-          src={image}
-          alt={title}
-          className="h-48 w-48 rounded-lg border-4 border-[#FFEA00]/30 object-cover shadow-lg transition-transform duration-300 group-hover:scale-105"
-        />
+        <div className="w-full p-6 md:w-2/3">
+          <h3 className="mb-2 text-2xl font-bold text-secondary">{title}</h3>
+          <p className="text-on-body/80 mb-4">{description}</p>
+          <motion.div whileHover={{ x: 10 }} transition={{ duration: 0.3 }}>
+            <Link
+              href={`/${url}`}
+              className="bg-secondary/70 inline-flex items-center rounded-lg px-4 py-2 font-medium text-on-secondary shadow transition-all duration-300 hover:bg-primary hover:text-on-primary"
+            >
+              Explorar
+              <motion.svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="ml-1 h-4 w-4"
+                whileHover={{ x: 5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                />
+              </motion.svg>
+            </Link>
+          </motion.div>
+        </div>
       </div>
-
-      <div className="flex flex-col py-4">
-        <h3 className="mb-4 text-3xl font-bold text-secondary drop-shadow-md">
-          {title}
-        </h3>
-
-        <p className="mb-6 flex-shrink text-lg">{description}</p>
-
-        <div className="mt-4 h-0.5 w-16 rounded bg-gradient-to-r from-[#FFEA00]/40 to-[#FFEA00]/60 transition-all duration-300 group-hover:w-32 group-hover:from-[#FFEA00]/60 group-hover:to-[#FFEA00]/80"></div>
-      </div>
-    </div>
+    </motion.div>
   );
-};
+}

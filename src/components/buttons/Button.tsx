@@ -8,11 +8,16 @@ interface Props {
 }
 
 export const Button: React.FC<Props> = ({ to, children, icon }) => {
-  const router = useRouter();
+  function scrollToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 
   return (
     <button
-      onClick={() => to && router.push(to)}
+      onClick={() => to && scrollToSection(to)}
       className="group relative overflow-hidden rounded-lg border border-[#36454F]/60 px-7 py-3 font-medium text-[#FFEA00] transition-all duration-300 hover:border-[#FFEA00]/40 hover:shadow-lg hover:shadow-[#FFEA00]/20 focus:outline-none focus:ring-2 focus:ring-[#FFEA00]/50 active:scale-95"
     >
       <div className="relative z-10 flex items-center transition-colors duration-300 group-hover:text-white">
