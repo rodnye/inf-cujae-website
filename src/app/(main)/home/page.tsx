@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/buttons/Button';
+import { ScrollButton } from '@/components/buttons/Button';
 import { Navbar } from '@/components/sections/Navbar';
 import { FaBook, FaToolbox, FaTrophy, FaCalendar } from 'react-icons/fa6';
 import { Footer } from '@/components/sections/Footer';
@@ -87,25 +87,35 @@ export default function HomePage() {
         {/* Navigation Section */}
         <section className="mx-auto mb-16 flex max-w-sm flex-col flex-wrap items-stretch justify-center gap-5 px-4 lg:max-w-full lg:flex-row lg:items-center">
           {[
-            { icon: <FaToolbox />, text: 'Materiales', to: 'mats', delay: 0.8 },
-            { icon: <FaBook />, text: 'Blog', to: 'blog', delay: 0.9 },
-            { icon: <FaCalendar />, text: 'Eventos', to: 'events', delay: 1.0 },
+            {
+              icon: <FaToolbox />,
+              text: 'Materiales',
+              scrollTo: 'mats',
+              delay: 0.8,
+            },
+            { icon: <FaBook />, text: 'Blog', scrollTo: 'blog', delay: 0.9 },
+            {
+              icon: <FaCalendar />,
+              text: 'Eventos',
+              scrollTo: 'events',
+              delay: 1.0,
+            },
             {
               icon: <FaTrophy />,
               text: 'Clasificaciones',
-              to: 'grades',
+              scrollTo: 'grades',
               delay: 1.1,
             },
           ].map((btn) => (
             <motion.div
-              key={btn.to}
+              key={btn.scrollTo}
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: btn.delay }}
             >
-              <Button icon={btn.icon} to={btn.to}>
+              <ScrollButton icon={btn.icon} scrollTo={btn.scrollTo}>
                 {btn.text}
-              </Button>
+              </ScrollButton>
             </motion.div>
           ))}
         </section>
