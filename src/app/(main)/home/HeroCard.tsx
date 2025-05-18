@@ -46,7 +46,7 @@ export function HeroCard({ title, description, image, url }: HeroCardProps) {
           <motion.div whileHover={{ x: 10 }} transition={{ duration: 0.3 }}>
             <Link
               href={`/${url}`}
-              className="inline-flex items-center rounded-lg bg-secondary px-4 py-2 font-medium text-on-secondary shadow transition-all duration-300 hover:bg-primary hover:text-on-primary"
+              className="bg-secondary/70 inline-flex items-center rounded-lg px-4 py-2 font-medium text-on-secondary shadow transition-all duration-300 hover:bg-primary hover:text-on-primary"
             >
               Explorar
               <motion.svg
