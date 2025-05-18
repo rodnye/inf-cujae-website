@@ -109,6 +109,7 @@ export default function HomePage() {
           ].map((btn) => (
             <motion.div
               key={btn.scrollTo}
+              className="flex flex-col items-stretch"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: btn.delay }}
