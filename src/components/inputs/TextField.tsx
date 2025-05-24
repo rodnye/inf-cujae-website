@@ -10,6 +10,7 @@ interface Props {
   className?: string;
   required?: boolean;
   rows?: number;
+  disabled?: boolean;
 }
 
 export const TextField: React.FC<Props> = ({
@@ -21,6 +22,7 @@ export const TextField: React.FC<Props> = ({
   className = '',
   required,
   rows = 1,
+  disabled = false,
 }) => {
   return (
     <div className={styles.container + ' ' + className}>
@@ -43,6 +45,7 @@ export const TextField: React.FC<Props> = ({
           onChange={(e) => onChange(e.target.value)}
           type={type}
           required={required}
+          disabled={disabled}
         />
       )}
     </div>

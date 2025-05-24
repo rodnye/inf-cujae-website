@@ -6,7 +6,7 @@ import { Button } from '@/components/buttons/Button';
 import { LineButton } from '@/components/buttons/LineButton';
 
 export type FieldConfig = {
-  type: 'text' | 'number' | 'email' | 'password' | 'select';
+  type: 'text' | 'date' | 'number' | 'email' | 'password' | 'select' | 'tags';
   label: string;
   placeholder?: string;
   required?: boolean;
@@ -79,7 +79,57 @@ export const AdminForm = <T extends Record<string, any>>({
               {config.required && <span className="text-red-500">*</span>}
             </label>
 
-            {config.type === 'select' ? (
+            {config.type === 'tags' ? (
+              <div>
+                <div className="flex items-center">
+                  <TextField
+                    type="text"
+                    value={value?.newTag || ''}
+                    className="mr-3 flex-grow"
+                    onChange={(val) =>
+                      handleChange(key)({ ...value, newTag: val })
+                    }
+                    placeholder="Añadir etiqueta"
+                  />
+                  <Button
+                    onClick={() => {
+                      const tag = value?.newTag?.trim();
+                      if (tag && !value?.tags?.includes(tag)) {
+                        handleChange(key)({
+                          ...value,
+                          tags: [...(value?.tags || []), tag],
+                          newTag: '',
+                        });
+                      }
+                    }}
+                  >
+                    Añadir
+                  </Button>
+                </div>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {value?.tags?.map((tag: string) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center rounded-full bg-accent px-2.5 py-0.5 text-xs font-medium text-on-primary"
+                    >
+                      {tag}
+                      <button
+                        className="ml-3 text-xl"
+                        onClick={() =>
+                          handleChange(key)({
+                            ...value,
+                            tags: value.tags.filter((t: string) => t !== tag),
+                          })
+                        }
+                      >
+                        <span className="sr-only">Eliminar etiqueta</span>
+                        &times;
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : config.type === 'select' ? (
               <select
                 name={fieldName}
                 value={value as string}
