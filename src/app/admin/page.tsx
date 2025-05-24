@@ -1,6 +1,6 @@
 import { Button } from '@/components/buttons/Button';
 import { withAdminSession } from './_hocs/admin-session';
-import { FaBookAtlas, FaUsers } from 'react-icons/fa6';
+import { FaBookAtlas, FaUsers, FaCubes } from 'react-icons/fa6';
 
 export default withAdminSession(() => {
   return (
@@ -13,6 +13,9 @@ export default withAdminSession(() => {
         </Button>
         <Button icon={<FaUsers />} to="/admin/users">
           Administración de Usuarios
+        </Button>
+        <Button icon={<FaCubes />} to="/admin/mats">
+          Administración de Materiales
         </Button>
       </section>
     </div>

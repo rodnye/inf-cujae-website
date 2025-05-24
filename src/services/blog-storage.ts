@@ -9,20 +9,9 @@ import {
 import path from 'path';
 import matter from 'gray-matter';
 import { BlogEntry } from '@/types/blog-entry';
+import { slugify } from '@/utils/slugify';
 
 const BLOG_BASE_PATH = path.join(process.cwd(), 'database', 'blog');
-
-const slugify = (title: string): string => {
-  const baseSlug = title
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-
-  const randomSuffix = Math.floor(Math.random() * 10000);
-  return `${baseSlug}-${randomSuffix}`;
-};
 
 const ensureDirectoryExists = async (slug: string) => {
   const dirPath = path.join(BLOG_BASE_PATH, slug);
