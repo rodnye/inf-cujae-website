@@ -12,7 +12,7 @@ import { BlogEntry } from '@/types/blog-entry';
 
 const BLOG_BASE_PATH = path.join(process.cwd(), 'database', 'blog');
 
-function slugify(title: string): string {
+const slugify = (title: string): string => {
   const baseSlug = title
     .toLowerCase()
     .trim()
@@ -22,9 +22,9 @@ function slugify(title: string): string {
 
   const randomSuffix = Math.floor(Math.random() * 10000);
   return `${baseSlug}-${randomSuffix}`;
-}
+};
 
-async function ensureDirectoryExists(slug: string) {
+const ensureDirectoryExists = async (slug: string) => {
   const dirPath = path.join(BLOG_BASE_PATH, slug);
   try {
     await access(dirPath);
@@ -32,9 +32,9 @@ async function ensureDirectoryExists(slug: string) {
     await mkdir(dirPath, { recursive: true });
   }
   return dirPath;
-}
+};
 
-export async function createBlogEntry(entry: BlogEntry) {
+export const createBlogEntry = async (entry: BlogEntry) => {
   const slug = slugify(entry.title);
   const dirPath = await ensureDirectoryExists(slug);
   const filePath = path.join(dirPath, 'index.md');
@@ -48,9 +48,11 @@ export async function createBlogEntry(entry: BlogEntry) {
   await writeFile(filePath, fileContent);
 
   return slug;
-}
+};
 
-export async function readBlogEntry(slug: string): Promise<BlogEntry | null> {
+export const readBlogEntry = async (
+  slug: string,
+): Promise<BlogEntry | null> => {
   const filePath = path.join(BLOG_BASE_PATH, slug, 'index.md');
   try {
     await access(filePath);
@@ -66,9 +68,9 @@ export async function readBlogEntry(slug: string): Promise<BlogEntry | null> {
   } catch {
     return null;
   }
-}
+};
 
-export async function updateBlogEntry(slug: string, entry: BlogEntry) {
+export const updateBlogEntry = async (slug: string, entry: BlogEntry) => {
   const dirPath = await ensureDirectoryExists(slug);
   const filePath = path.join(dirPath, 'index.md');
   const frontmatter = {
@@ -79,20 +81,19 @@ export async function updateBlogEntry(slug: string, entry: BlogEntry) {
   };
   const fileContent = matter.stringify(entry.content, frontmatter);
   await writeFile(filePath, fileContent);
-}
+};
 
-export async function deleteBlogEntry(slug: string) {
+export const deleteBlogEntry = async (slug: string) => {
   const filePath = path.join(BLOG_BASE_PATH, slug);
   try {
     await remove(filePath);
-
     return true;
   } catch {
     return false;
   }
-}
+};
 
-export async function listBlogEntries(): Promise<string[]> {
+export const listBlogEntries = async (): Promise<string[]> => {
   try {
     await access(BLOG_BASE_PATH);
     const slugs = readdirSync(BLOG_BASE_PATH);
@@ -100,4 +101,4 @@ export async function listBlogEntries(): Promise<string[]> {
   } catch {
     return [];
   }
-}
+};

@@ -16,20 +16,20 @@ export const verifyApiKey = async (apiKey: string) => {
  * Verificar el token de administración enviado por cookies (admin-session)
  */
 export const verifyAdminSession = async (token: string) => {
-  const redis = await connectRedis();
-  let session = await redis.hget('sessions', token);
+  try {
+    const redis = await connectRedis();
+    let session = await redis.hget('sessions', token);
 
-  if (session) {
-    if (Number(session) > Date.now()) {
-      disconnectRedis();
-      return true;
+    if (session) {
+      if (Number(session) > Date.now()) {
+        return true;
+      }
+      redis.hdel('sessions', token);
     }
-
-    redis.hdel('sessions', token);
+    return false;
+  } finally {
+    disconnectRedis();
   }
-
-  disconnectRedis();
-  return false;
 };
 
 /**
