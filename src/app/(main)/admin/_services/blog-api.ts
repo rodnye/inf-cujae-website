@@ -1,7 +1,8 @@
+'use client';
 import { BlogEntry } from '@/types/blog-entry';
 import { redirect } from 'next/navigation';
 
-async function handleResponse(response: Response) {
+const handleResponse = async (response: Response) => {
   if (response.status === 401) {
     return redirect('/admin/login');
   }
@@ -12,9 +13,9 @@ async function handleResponse(response: Response) {
   }
 
   return json;
-}
+};
 
-export async function fetchBlogEntries() {
+export const fetchBlogEntries = async () => {
   try {
     const response = await fetch('/api/blog');
     return (await handleResponse(response)) as {
@@ -25,9 +26,9 @@ export async function fetchBlogEntries() {
     console.error('Error solicitando las entradas del blog:', error);
     throw error;
   }
-}
+};
 
-export async function fetchBlogEntry(slug: string) {
+export const fetchBlogEntry = async (slug: string) => {
   try {
     const response = await fetch('/api/blog/' + slug);
     return (await handleResponse(response)) as BlogEntry;
@@ -35,9 +36,9 @@ export async function fetchBlogEntry(slug: string) {
     console.error('Error solicitando el articulo ' + slug, error);
     throw error;
   }
-}
+};
 
-export async function createBlogEntry(entryData: BlogEntry) {
+export const createBlogEntry = async (entryData: BlogEntry) => {
   try {
     const response = await fetch('/api/blog', {
       method: 'POST',
@@ -52,9 +53,9 @@ export async function createBlogEntry(entryData: BlogEntry) {
     console.error('Error creando las entradas del blog:', error);
     throw error;
   }
-}
+};
 
-export async function deleteBlogEntry(slug: string) {
+export const deleteBlogEntry = async (slug: string) => {
   try {
     const response = await fetch('/api/blog/' + slug, {
       method: 'DELETE',
@@ -65,4 +66,4 @@ export async function deleteBlogEntry(slug: string) {
     console.error('Error eliminando la entrada del blog:', error);
     throw error;
   }
-}
+};
