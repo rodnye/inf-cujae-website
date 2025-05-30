@@ -9,7 +9,7 @@ import { connectRedis, disconnectRedis } from './redis-storage';
  */
 export const verifyApiKey = async (apiKey: string) => {
   // TODO: cambiar esto por una validación de variable de entorno
-  return apiKey === 'token_secreto';
+  return apiKey === process.env.ADMIN_PASS;
 };
 
 /**
