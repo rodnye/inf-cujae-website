@@ -7,9 +7,10 @@ import {
   fetchBlogEntries,
   fetchBlogEntry,
 } from '../_services/blog-api';
-import { LineButton } from '@/components/buttons/LineButton';
 import { AdminForm } from '@/components/sections/AdminForm';
 import { blogFieldConfig, emptyBlogFields } from './blogAdminConfig';
+import { ListManager } from '@/components/sections/ListManager';
+import { FaEye, FaTrash } from 'react-icons/fa6';
 
 export function BlogAdminPage() {
   const [blogEntries, setBlogEntries] = useState<string[]>([]);
@@ -53,6 +54,7 @@ export function BlogAdminPage() {
 
   const handleSubmit = async () => {
     try {
+      form.tags.shift(); // remove the first input tag
       const result = await createBlogEntry(form);
       alert(result.message || 'Entrada de blog creada exitosamente');
 
@@ -70,34 +72,22 @@ export function BlogAdminPage() {
           Panel de Administración del Blog
         </h1>
 
-        {/* Lista de entradas existentes */}
-        <section className="rounded-lg p-6 shadow-md">
-          <h2 className="mb-4 text-xl font-semibold">Entradas Existentes</h2>
-          {blogEntries.length === 0 ? (
-            <p>No hay artículos disponibles</p>
-          ) : (
-            <ul className="divide-y divide-on-body">
-              {blogEntries.map((slug) => (
-                <li key={slug} className="py-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">{slug}</span>
-                    <div className="flex space-x-2">
-                      <LineButton onClick={() => handlePreviewEntry(slug)}>
-                        Ver
-                      </LineButton>
-                      <LineButton
-                        onClick={() => handleDeleteEntry(slug)}
-                        color="text-red-600"
-                      >
-                        Eliminar
-                      </LineButton>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+        <ListManager
+          title="Entradas Existentes"
+          items={blogEntries}
+          emptyMessage="No hay artículos disponibles"
+          actions={[
+            {
+              label: <FaEye />,
+              onClick: handlePreviewEntry,
+            },
+            {
+              label: <FaTrash />,
+              onClick: handleDeleteEntry,
+              color: 'text-red-600',
+            },
+          ]}
+        />
 
         {/* Formulario para crear nueva entrada */}
         <section className="mb-8 rounded-lg p-6 shadow-md">

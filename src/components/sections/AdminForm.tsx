@@ -5,14 +5,27 @@ import { TextField } from '@/components/inputs/TextField';
 import { Button } from '@/components/buttons/Button';
 import { LineButton } from '@/components/buttons/LineButton';
 
-export type FieldConfig = {
-  type: 'text' | 'date' | 'number' | 'email' | 'password' | 'select' | 'tags';
+export type BaseFieldConfig = {
   label: string;
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
-  options?: { value: string; label: string }[];
 };
+
+export type TextFieldConfig = BaseFieldConfig & {
+  type: 'text' | 'date' | 'number' | 'email' | 'password' | 'tags';
+};
+
+export type AreaFieldConfig = BaseFieldConfig & {
+  type: 'area';
+  rows: number;
+};
+export type SelectFieldConfig = BaseFieldConfig & {
+  type: 'select';
+  options: { value: string; label: string }[];
+};
+
+export type FieldConfig = TextFieldConfig | AreaFieldConfig | SelectFieldConfig;
 
 type FormProps<T extends Record<string, any>> = {
   data: T;
@@ -42,10 +55,11 @@ export const AdminForm = <T extends Record<string, any>>({
     setFormData(externalData);
   }, [externalData]);
 
-  const handleChange = (fieldName: keyof T) => (value: string | number) => {
-    onChange?.({ ...formData, [fieldName]: value } as T);
-    setFormData((prev) => ({ ...prev, [fieldName]: value }));
-  };
+  const handleChange =
+    (fieldName: keyof T) => (value: string | number | string[]) => {
+      onChange?.({ ...formData, [fieldName]: value } as T);
+      setFormData((prev) => ({ ...prev, [fieldName]: value }));
+    };
 
   const handleSubmit = async () => {
     try {
@@ -84,22 +98,20 @@ export const AdminForm = <T extends Record<string, any>>({
                 <div className="flex items-center">
                   <TextField
                     type="text"
-                    value={value?.newTag || ''}
+                    value={value[0] || ''}
                     className="mr-3 flex-grow"
-                    onChange={(val) =>
-                      handleChange(key)({ ...value, newTag: val })
-                    }
+                    onChange={(val) => {
+                      value[0] = val;
+                      handleChange(key)([...value]);
+                    }}
                     placeholder="Añadir etiqueta"
                   />
                   <Button
                     onClick={() => {
-                      const tag = value?.newTag?.trim();
-                      if (tag && !value?.tags?.includes(tag)) {
-                        handleChange(key)({
-                          ...value,
-                          tags: [...(value?.tags || []), tag],
-                          newTag: '',
-                        });
+                      const tag = value?.[0]?.trim();
+                      value[0] = '';
+                      if (tag && !value?.includes(tag)) {
+                        handleChange(key)([...value, tag]);
                       }
                     }}
                   >
@@ -107,26 +119,29 @@ export const AdminForm = <T extends Record<string, any>>({
                   </Button>
                 </div>
                 <div className="mt-2 flex flex-wrap gap-2">
-                  {value?.tags?.map((tag: string) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center rounded-full bg-accent px-2.5 py-0.5 text-xs font-medium text-on-primary"
-                    >
-                      {tag}
-                      <button
-                        className="ml-3 text-xl"
-                        onClick={() =>
-                          handleChange(key)({
-                            ...value,
-                            tags: value.tags.filter((t: string) => t !== tag),
-                          })
-                        }
-                      >
-                        <span className="sr-only">Eliminar etiqueta</span>
-                        &times;
-                      </button>
-                    </span>
-                  ))}
+                  {value.map(
+                    (tag: string, i: number) =>
+                      i != 0 && (
+                        <span
+                          key={tag}
+                          className="inline-flex items-center rounded-full bg-accent px-2.5 py-0.5 text-xs font-medium text-on-primary"
+                        >
+                          {tag}
+                          <button
+                            className="ml-3 text-xl"
+                            onClick={() => {
+                              handleChange(key)([
+                                value.shift(),
+                                ...value.filter((t: string) => t !== tag),
+                              ]);
+                            }}
+                          >
+                            <span className="sr-only">Eliminar etiqueta</span>
+                            &times;
+                          </button>
+                        </span>
+                      ),
+                  )}
                 </div>
               </div>
             ) : config.type === 'select' ? (
@@ -149,6 +164,7 @@ export const AdminForm = <T extends Record<string, any>>({
                 type={config.type}
                 name={fieldName}
                 className="w-full"
+                rows={config.type === 'area' ? config.rows : undefined}
                 placeholder={config.placeholder}
                 value={value?.toString() || ''}
                 onChange={handleChange(key)}

@@ -17,7 +17,8 @@ export const blogFieldConfig: Record<keyof BlogEntry, FieldConfig> = {
     required: true,
   },
   content: {
-    type: 'text',
+    type: 'area',
+    rows: 5,
     label: 'Contenido',
     placeholder: 'Escribe el contenido...',
     required: true,

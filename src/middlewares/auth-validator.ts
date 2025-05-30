@@ -1,7 +1,7 @@
 // @/middlewares/auth-validator.ts
 import { getCurrentUser } from '@/services/user-session';
 import { NextResponse } from 'next/server';
-import { Middleware } from '.';
+import { Middleware } from './lib';
 
 export const authValidator = (): Middleware => async (req) => {
   const user = await getCurrentUser();

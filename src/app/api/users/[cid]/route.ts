@@ -1,4 +1,4 @@
-import { withMiddlewares } from '@/middlewares';
+import { withMiddlewares } from '@/middlewares/lib';
 import { adminValidator } from '@/middlewares/admin-validator';
 import { jsonBodyValidator } from '@/middlewares/json-validator';
 import { deleteUser, readUser, updateUser } from '@/services/user-storage';

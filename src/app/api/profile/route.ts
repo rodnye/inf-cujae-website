@@ -1,4 +1,4 @@
-import { withMiddlewares } from '@/middlewares';
+import { withMiddlewares } from '@/middlewares/lib';
 import { authValidator } from '@/middlewares/auth-validator';
 import { User } from '@/types/user';
 import { NextResponse } from 'next/server';

@@ -1,11 +1,7 @@
-import { withMiddlewares } from '@/middlewares';
+import { withMiddlewares } from '@/middlewares/lib';
 import { adminValidator } from '@/middlewares/admin-validator';
 import { uploadMaterial, listMaterials } from '@/services/materials-storage';
 import { NextResponse } from 'next/server';
-
-export const config = {
-  api: {},
-};
 
 export const GET = withMiddlewares([], async () => {
   return NextResponse.json({

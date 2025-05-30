@@ -9,6 +9,7 @@ import {
 import { LineButton } from '@/components/buttons/LineButton';
 import { Button } from '@/components/buttons/Button';
 import { ProgressBar } from '@/components/inputs/ProgressBar'; // Importa el componente de barra de progreso
+import { ListManager } from '@/components/sections/ListManager';
 
 export function MatsAdminPage() {
   const [materials, setMaterials] = useState<string[]>([]);
@@ -78,30 +79,18 @@ export function MatsAdminPage() {
         </h1>
 
         {/* Lista de materiales existentes */}
-        <section className="rounded-lg p-6 shadow-md">
-          <h2 className="mb-4 text-xl font-semibold">Materiales Existentes</h2>
-          {materials.length === 0 ? (
-            <p>No hay materiales disponibles</p>
-          ) : (
-            <ul className="divide-y divide-on-body">
-              {materials.map((filename) => (
-                <li key={filename} className="py-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">{filename}</span>
-                    <div className="flex space-x-2">
-                      <LineButton
-                        onClick={() => handleDelete(filename)}
-                        color="text-red-600"
-                      >
-                        Eliminar
-                      </LineButton>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+        <ListManager
+          title="Materiales Existentes"
+          items={materials}
+          emptyMessage="No hay materiales disponibles"
+          actions={[
+            {
+              label: 'Eliminar',
+              onClick: handleDelete,
+              color: 'text-red-600',
+            },
+          ]}
+        />
 
         {/* Formulario para subir nuevo material */}
         <section className="mb-8 rounded-lg p-6 shadow-md">

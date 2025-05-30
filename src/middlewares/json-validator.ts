@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { ZodError, ZodSchema } from 'zod';
-import { Middleware } from '.';
+import { Middleware } from './lib';
 
 /**
  * Middleware para validar el cuerpo de la solicitud contra un esquema Zod
@@ -34,7 +34,10 @@ export const jsonBodyValidator = <T extends ZodSchema>(
       } catch (e) {
         return {
           pass: false,
-          response: NextResponse.json({ error: errorMessage }, { status: 400 }),
+          response: NextResponse.json(
+            { message: errorMessage },
+            { status: 400 },
+          ),
         };
       }
 

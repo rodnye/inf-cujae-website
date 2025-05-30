@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { Middleware } from '.';
+import { Middleware } from './lib';
 import { cookies } from 'next/headers';
 import { verifyAdminSession } from '@/services/admin-session';
 
@@ -44,5 +44,8 @@ export const adminValidator = (): Middleware => async (request) => {
 
   return {
     pass: true,
+    data: {
+      isAdmin: true,
+    },
   };
 };

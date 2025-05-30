@@ -9,9 +9,11 @@ import {
   fetchUser,
   updateUser,
 } from '../_services/user-api';
-import { LineButton } from '@/components/buttons/LineButton';
 import { AdminForm } from '@/components/sections/AdminForm';
 import { emptyUserFields, userFieldConfig } from './userAdminConfig';
+import { ListManager } from '@/components/sections/ListManager';
+import { FaEdit } from 'react-icons/fa';
+import { FaEye, FaTrash } from 'react-icons/fa6';
 
 export function UsersAdminPage() {
   const [usersCid, setUsersCid] = useState<string[]>([]);
@@ -125,41 +127,33 @@ export function UsersAdminPage() {
 
         <div className="flex w-full flex-col md:flex-row md:justify-stretch">
           {/* Lista de usuarios existentes */}
-          <section className="mb-8 flex-shrink-0 rounded-lg p-6 shadow-md">
-            <h2 className="mb-4 text-xl font-semibold">Usuarios Registrados</h2>
-            {usersCid.length === 0 ? (
-              <p>No hay usuarios registrados</p>
-            ) : (
-              <ul className="divide-y divide-on-body">
-                {usersCid.map((cid) => (
-                  <li key={cid} className="py-3">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <span className="pr-8 font-medium">( {cid} )</span>
-                      </div>
-                      <div className="flex space-x-2">
-                        <LineButton onClick={() => handleViewUser(cid)}>
-                          Ver
-                        </LineButton>
-                        <LineButton
-                          onClick={() => handleEditUser(cid)}
-                          color="text-green-500"
-                        >
-                          Editar
-                        </LineButton>
-                        <LineButton
-                          onClick={() => handleDeleteUser(cid)}
-                          color="text-red-600"
-                        >
-                          Eliminar
-                        </LineButton>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+          <ListManager
+            title="Usuarios Registrados"
+            items={usersCid}
+            emptyMessage="No hay usuarios registrados"
+            actions={[
+              {
+                label: <FaEye />,
+                onClick: handleViewUser,
+              },
+              {
+                label: <FaEdit />,
+                onClick: handleEditUser,
+                color: 'text-green-500',
+              },
+              {
+                label: <FaTrash />,
+                onClick: handleDeleteUser,
+                color: 'text-red-600',
+              },
+            ]}
+            itemDisplay={(cid) => (
+              <div>
+                <span className="pr-8 font-medium">( {cid} )</span>
+              </div>
             )}
-          </section>
+            className="mb-8 flex-shrink-0"
+          />
 
           {/* formulario: crear/editar usuario */}
           <section className="flex w-full flex-col flex-wrap items-center rounded-lg p-6 shadow-md">

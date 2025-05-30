@@ -1,4 +1,4 @@
-import { withMiddlewares } from '@/middlewares';
+import { withMiddlewares } from '@/middlewares/lib';
 import { jsonBodyValidator } from '@/middlewares/json-validator';
 import {
   createUserSession,
