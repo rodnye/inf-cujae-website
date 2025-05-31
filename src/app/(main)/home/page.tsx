@@ -71,16 +71,6 @@ export default function HomePage() {
             transition={{ duration: 0.7, delay: 0.5 }}
             className="mt-5 max-w-2xl text-lg md:text-xl"
           >
-            "Si puedes imaginarlo, puedes programarlo" -
-            <strong> Alejandro Taboada</strong>
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="mt-5 max-w-2xl text-lg md:text-xl"
-          >
             &quot;Si puedes imaginarlo, puedes programarlo&quot; -
             <strong> Alejandro Taboada</strong>
           </motion.p>
@@ -203,7 +193,6 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-      <Footer />
     </div>
   );
 }
