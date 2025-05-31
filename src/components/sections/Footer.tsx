@@ -1,54 +1,58 @@
 import Image from 'next/image';
 import logoInforImg from '@/assets/logo_infor.png';
-import instagramIcon from '@/assets/instagram-icon.svg';
-import telegramIcon from '@/assets/telegram-icon.svg';
+import { FaInstagram, FaTelegram } from 'react-icons/fa6';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="relative mt-auto w-full bg-primary bg-opacity-95 px-5 py-60 sm:px-6 sm:py-12">
-      <div className="mx-auto w-full p-5 md:max-w-screen-2xl">
-        <div className="md:flex md:justify-between">
-          <div className="-translate-y-1/6 left-100 absolute top-2 transform">
+    <footer className="w-full bg-primary bg-opacity-95 px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-screen-xl">
+        <div className="flex flex-col items-center justify-start gap-6 md:flex-row">
+          {/* Logo */}
+          <div className="flex-shrink-0">
             <Image
-              className="w-20 rounded-lg transition-all duration-300 hover:scale-105"
+              className="w-36 rounded-lg transition-all duration-300 hover:scale-105 md:w-24"
               alt="logoInfor"
               src={logoInforImg}
-              width={300}
-              height={1000}
+              width={200}
+              height={80}
+              priority
             />
           </div>
 
-          <div className="left-100 top-37 absolute translate-y-8 transform">
-            <Image
-              className="w-8 transition-all duration-300 hover:scale-105"
-              alt="instagramIcon"
-              src={instagramIcon}
-            />
-          </div>
+          {/* Redes Sociales */}
+          <div className="flex flex-col items-center gap-6 md:items-start">
+            <div className="flex items-center gap-2">
+              <FaInstagram className="text-2xl text-white" />
+              <span className="text-white">Instagram:</span>
+              <a
+                // TODO: poner enlace de Instagram
+                href="https://www.instagram.com/inf_cujae/&ved=2ahUKEwj95_GO_MyNAxVoQzABHWmLH5wQFnoECB0QAQ&usg=AOvVaw2rbLeg12TcuWvGMUxC6cMp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-secondary transition-colors duration-300 hover:underline"
+              >
+                @inf_cujae
+              </a>
+            </div>
 
-          <div className="left-100 top-100 absolute translate-y-20 transform">
-            <Image
-              className="w-8 transition-all duration-300 hover:scale-105"
-              alt="telegramIcon"
-              src={telegramIcon}
-            />
-            <div className="mx-10 flex -translate-y-7">
-              <div>telegram: </div>
+            <div className="flex items-center gap-2">
+              <FaTelegram className="text-2xl text-white" />
+              <span className="text-white">Telegram:</span>
               <a
                 href="https://web.telegram.org/k/#@informaticaCujae"
-                target="_blank" // Abre en nueva pestaña
-                rel="noopener noreferrer" // Seguridad para enlaces externos
-                className="mx-2 cursor-pointer text-[#FFEA00] hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-secondary transition-colors duration-300 hover:underline"
               >
                 @informaticaCujae
               </a>
             </div>
           </div>
+        </div>
 
-          {/* Contenido principal con padding superior para evitar solapamiento */}
-          <div className="w-full pt-16 md:pt-20">
-            <div className="flex flex-col justify-between gap-8 text-white sm:gap-6 md:flex-row md:flex-wrap md:gap-10"></div>
-          </div>
+        <div className="mt-8 border-t border-white border-opacity-20 pt-6 text-center text-sm text-white">
+          © {new Date().getFullYear()} Informática CUJAE. Todos los derechos
+          reservados.
         </div>
       </div>
     </footer>
