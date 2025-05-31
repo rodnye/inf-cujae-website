@@ -1,12 +1,10 @@
 'use client';
 
 import { ScrollButton } from '@/components/buttons/Button';
-import { Navbar } from '@/components/sections/Navbar';
 import { FaBook, FaToolbox, FaTrophy, FaCalendar } from 'react-icons/fa6';
 import { Footer } from '@/components/sections/Footer';
 import { BlogGrid } from '@/components/sections/BlogGrid';
 import { HeroCard } from './HeroCard';
-import { mockBlogEntries } from './_mockBlogEntries';
 import { useEffect, useState } from 'react';
 import { motion, useScroll, useInView } from 'framer-motion';
 import { useRef } from 'react';
@@ -77,12 +75,15 @@ export default function HomePage() {
             <strong> Alejandro Taboada</strong>
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.7 }}
-            className="mt-8 h-1 w-24 rounded bg-gradient-to-r from-[#FFEA00]/60 to-[#FFEA00]/80"
-          ></motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="mt-5 max-w-2xl text-lg md:text-xl"
+          >
+            &quot;Si puedes imaginarlo, puedes programarlo&quot; -
+            <strong> Alejandro Taboada</strong>
+          </motion.p>
         </div>
       </section>
 
@@ -134,7 +135,7 @@ export default function HomePage() {
         <h2 className="mb-6 text-center text-3xl font-bold text-[var(--color-secondary)]">
           Publicaciones más recientes
         </h2>
-        <BlogGrid entries={mockBlogEntries} />
+        <BlogGrid />
       </motion.section>
 
       {/* Content Section - Con animación al scroll */}
@@ -202,6 +203,7 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

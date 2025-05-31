@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 className="text-secondary transition-colors duration-300 hover:underline"
               >
-                @informaticaCujae
+                Equipo de Desarrollo
               </a>
             </div>
           </div>
