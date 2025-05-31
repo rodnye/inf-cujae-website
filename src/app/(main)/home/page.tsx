@@ -11,6 +11,11 @@ import { useEffect, useState } from 'react';
 import { motion, useScroll, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
+import blogImg from '@/assets/blog-whale-01.png';
+import eventsImg from '@/assets/events-whale.png';
+import gradesImg from '@/assets/grades-whale-01.png';
+import matsImg from '@/assets/materials-whale.png';
+
 export default function HomePage() {
   // Para animaciones de scroll
   const { scrollY } = useScroll();
@@ -146,12 +151,12 @@ export default function HomePage() {
             Explora Nuestras Secciones
           </motion.h2>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 p-4">
             {[
               {
                 id: 'mats',
                 title: 'Materiales',
-                image: '/images/materials.jpg',
+                image: matsImg.src,
                 description:
                   'Coleccion de materiales de estudio para todos los cursos informaticos. ' +
                   'Te lleva mal la Uni? Peor te llevara la busqueda de chamba, asi que aprovecha estos materiales ' +
@@ -161,7 +166,7 @@ export default function HomePage() {
               {
                 id: 'blog',
                 title: 'Blog',
-                image: '/images/blog.jpg',
+                image: blogImg.src,
                 description:
                   'Blog para compartir informacion entre estudiantes y profesores',
                 url: 'blog',
@@ -169,7 +174,7 @@ export default function HomePage() {
               {
                 id: 'events',
                 title: 'Eventos',
-                image: '/images/events.jpg',
+                image: eventsImg.src,
                 description:
                   'Calendario de eventos, conferencias y actividades importantes',
                 url: 'events',
@@ -177,7 +182,7 @@ export default function HomePage() {
               {
                 id: 'grades',
                 title: 'Calificaciones',
-                image: '/images/calificaciones.jpg',
+                image: gradesImg.src,
                 description:
                   'Revisa y manten una revision de tus calificaciones y tareas pendientes',
                 url: 'grades',
