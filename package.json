@@ -10,7 +10,9 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@types/adm-zip": "^0.5.7",
     "@types/fs-extra": "^11.0.4",
+    "adm-zip": "^0.5.16",
     "framer-motion": "^12.11.0",
     "fs-extra": "^11.3.0",
     "gray-matter": "^4.0.3",
