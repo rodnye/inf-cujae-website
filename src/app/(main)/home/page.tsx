@@ -6,7 +6,7 @@ import { FaBook, FaToolbox, FaTrophy, FaCalendar } from 'react-icons/fa6';
 import { Footer } from '@/components/sections/Footer';
 import { BlogGrid } from '@/components/sections/BlogGrid';
 import { HeroCard } from './HeroCard';
-import { mockBlogEntries } from './_mockBlogEntries';
+//import { mockBlogEntries } from './_mockBlogEntries';
 import { useEffect, useState } from 'react';
 import { motion, useScroll, useInView } from 'framer-motion';
 import { useRef } from 'react';
@@ -71,7 +71,7 @@ export default function HomePage() {
               transition={{ duration: 0.7, delay: 0.5 }}
               className="mt-5 max-w-2xl text-lg md:text-xl"
             >
-              "Si puedes imaginarlo, puedes programarlo" -
+              &quot;Si puedes imaginarlo, puedes programarlo&quot; -
               <strong> Alejandro Taboada</strong>
             </motion.p>
 
@@ -132,7 +132,7 @@ export default function HomePage() {
           <h2 className="mb-6 text-center text-3xl font-bold text-[var(--color-secondary)]">
             Publicaciones más recientes
           </h2>
-          <BlogGrid entries={mockBlogEntries} />
+          <BlogGrid />
         </motion.section>
 
         {/* Content Section - Con animación al scroll */}

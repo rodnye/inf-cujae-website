@@ -5,49 +5,72 @@ import telegramIcon from '@/assets/telegram-icon.svg';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="relative mt-auto w-full bg-primary bg-opacity-95 px-5 py-60 sm:px-6 sm:py-12">
-      <div className="mx-auto w-full p-5 md:max-w-screen-2xl">
-        <div className="md:flex md:justify-between">
-          <div className="-translate-y-1/6 left-100 absolute top-2 transform">
+    <footer className="relative mt-auto w-full bg-primary bg-opacity-95 px-6 py-12 text-white">
+      <div className="mx-auto w-full max-w-screen-2xl">
+        <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
+          {/* Logo */}
+          <div className="flex items-center">
             <Image
-              className="w-20 rounded-lg transition-all duration-300 hover:scale-105"
-              alt="logoInfor"
+              className="w-20 rounded-lg transition-transform duration-300 hover:scale-105"
+              alt="Logo Infor"
               src={logoInforImg}
-              width={300}
-              height={1000}
+              width={80}
+              height={80}
             />
           </div>
 
-          <div className="left-100 top-37 absolute translate-y-8 transform">
-            <Image
-              className="w-8 transition-all duration-300 hover:scale-105"
-              alt="instagramIcon"
-              src={instagramIcon}
-            />
+          {/* Redes sociales */}
+          <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 transition-transform duration-300 hover:scale-105"
+            >
+              <Image
+                className="w-8"
+                alt="Instagram Icon"
+                src={instagramIcon}
+                width={32}
+                height={32}
+              />
+              <span className="hidden md:inline">Instagram</span>
+            </a>
+
+            <a
+              href="https://web.telegram.org/k/#@informaticaCujae"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 transition-transform duration-300 hover:scale-105"
+            >
+              <Image
+                className="w-8"
+                alt="Telegram Icon"
+                src={telegramIcon}
+                width={32}
+                height={32}
+              />
+              <span className="hidden md:inline">@informaticaCujae</span>
+            </a>
           </div>
 
-          <div className="left-100 top-100 absolute translate-y-20 transform">
-            <Image
-              className="w-8 transition-all duration-300 hover:scale-105"
-              alt="telegramIcon"
-              src={telegramIcon}
-            />
-            <div className="mx-10 flex -translate-y-7">
-              <div>telegram: </div>
+          {/* Información adicional */}
+          <div className="text-center text-sm md:text-right">
+            <p className="mb-2">
+              © {new Date().getFullYear()} Informática CUJAE. Todos los
+              derechos reservados.
+            </p>
+            <p>
+              Desarrollado por{' '}
               <a
-                href="https://web.telegram.org/k/#@informaticaCujae"
-                target="_blank" // Abre en nueva pestaña
-                rel="noopener noreferrer" // Seguridad para enlaces externos
-                className="mx-2 cursor-pointer text-[#FFEA00] hover:underline"
+                href="https://github.com" //TODO: Replace with actual link to development team
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#FFEA00] hover:underline"
               >
-                @informaticaCujae
+                Equipo de Desarrollo
               </a>
-            </div>
-          </div>
-
-          {/* Contenido principal con padding superior para evitar solapamiento */}
-          <div className="w-full pt-16 md:pt-20">
-            <div className="flex flex-col justify-between gap-8 text-white sm:gap-6 md:flex-row md:flex-wrap md:gap-10"></div>
+            </p>
           </div>
         </div>
       </div>
