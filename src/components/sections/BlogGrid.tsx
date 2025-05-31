@@ -8,7 +8,7 @@ interface BlogEntry {
   content: string;
 }
 
-import fallbackImg from '@/assets/error_404_image.jpeg'; // Ruta de la imagen de respaldo
+import fallbackImg from '@/assets/error_404.png';
 
 export const BlogGrid: React.FC = () => {
   const [entries, setEntries] = useState<BlogEntry[]>([]);
