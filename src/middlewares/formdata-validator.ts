@@ -18,6 +18,7 @@ export const fileSchema = z.custom<File>((value) => value instanceof File);
 export const formdataValidator =
   (schema: SomeZodObject): Middleware =>
   async (request) => {
+    // chequear Content-Type
     if (!request.headers.get('content-type')?.includes('multipart/form-data')) {
       return {
         pass: false,
@@ -29,41 +30,48 @@ export const formdataValidator =
     }
 
     const formData = await request.formData();
-    const formDataParsed: Record<string, string | number | boolean | Object> =
-      {};
+    const formDataParsed: Record<string, unknown> = {};
 
     for (const [key, value] of formData.entries()) {
       const shape = schema.shape[key];
-      let convertedValue: any = value;
 
-      if (shape) {
+      if (!shape) continue;
+
+      try {
         if (shape instanceof ZodString) {
-          convertedValue = z.coerce.string().parse(value);
+          formDataParsed[key] = String(value);
         } else if (shape instanceof ZodNumber) {
-          convertedValue = z.coerce.number().parse(value);
+          formDataParsed[key] = Number(value);
         } else if (shape instanceof ZodBoolean) {
-          convertedValue = z.coerce.boolean().parse(value);
+          formDataParsed[key] = value === 'true';
         } else if (shape instanceof ZodObject) {
-          try {
-            if (typeof value !== 'string') throw new Error('Not json');
-            convertedValue = JSON.parse(value);
-          } catch (e) {
-            convertedValue = 'error';
-          }
+          formDataParsed[key] =
+            typeof value === 'string' ? JSON.parse(value) : value;
+        } else if (shape === fileSchema) {
+          formDataParsed[key] = value;
+        } else {
+          formDataParsed[key] = value;
         }
+      } catch (error) {
+        return {
+          pass: false,
+          response: NextResponse.json(
+            {
+              error: `Invalid format for field ${key}`,
+              details: error instanceof Error ? error.message : String(error),
+            },
+            { status: 400 },
+          ),
+        };
       }
-
-      formDataParsed[key] = value;
     }
 
+    // validar el obheto completo
     try {
       const body = schema.parse(formDataParsed);
-      // Si el esquema esta en orden, guardarlo en data.body
       return {
         pass: true,
-        data: {
-          body,
-        },
+        data: { body },
       };
     } catch (error) {
       if (error instanceof ZodError) {
@@ -72,7 +80,7 @@ export const formdataValidator =
           response: NextResponse.json(
             {
               error: 'Invalid request body',
-              details: error.message,
+              details: error.errors,
             },
             { status: 400 },
           ),
@@ -81,7 +89,7 @@ export const formdataValidator =
       return {
         pass: false,
         response: NextResponse.json(
-          { error: 'Server error! Necesita revisión' },
+          { error: 'Server error during validation' },
           { status: 500 },
         ),
       };
