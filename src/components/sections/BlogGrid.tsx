@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 import fallbackImg from '@/assets/error_404.png';
 import { BlogEntry } from '@/types/blog-entry';
@@ -7,7 +8,11 @@ import { BlogCard } from './BlogCard';
 
 type BlogEntryWithId = BlogEntry & { id: string };
 
-export const BlogGrid: React.FC = () => {
+interface BlogGridProps {
+  limit?: number; // Si no se pasa, mostrará todos
+}
+
+export const BlogGrid: React.FC<BlogGridProps> = ({ limit }) => {
   const [entries, setEntries] = useState<BlogEntryWithId[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -24,7 +29,7 @@ export const BlogGrid: React.FC = () => {
       try {
         setIsLoading(true);
 
-        // TODO: hacer que solo obtenga los 3 últimos
+        // Obtener todos los slugs
         const slugsResponse = await fetch('/api/blog');
         if (!slugsResponse.ok) {
           throw new Error(`HTTP error! Status: ${slugsResponse.status}`);
@@ -37,12 +42,14 @@ export const BlogGrid: React.FC = () => {
           return;
         }
 
+        // Aplicar límite si se especifica, sino tomar todos
+        const slugsToFetch = limit
+          ? slugsData.slugs.slice(0, limit)
+          : slugsData.slugs;
+
         const entriesResults: (BlogEntryWithId | null)[] = await Promise.all(
-          // tomar solo los primeros 3
-          slugsData.slugs
-            .slice(0, 3)
-            // pedir los contenidos
-            .map(async (slug) => {
+          slugsToFetch.map(async (slug) => {
+            try {
               const entryResponse = await fetch(`/api/blog/${slug}`);
               if (!entryResponse.ok) {
                 console.error(`Error al obtener el blog ${slug}`);
@@ -52,12 +59,16 @@ export const BlogGrid: React.FC = () => {
                 id: slug,
                 ...((await entryResponse.json()) as BlogEntry),
               };
-            }),
+            } catch (error) {
+              console.error(`Error al procesar el blog ${slug}:`, error);
+              return null;
+            }
+          }),
         );
 
-        console.log(entriesResults);
+        console.log('Entries results:', entriesResults);
 
-        // filtrar solicitudes fallidas
+        // Filtrar solicitudes fallidas y aplicar fallback de imagen
         const validEntries: BlogEntryWithId[] = entriesResults
           .filter((entry) => entry !== null)
           .map((entry) => ({
@@ -77,7 +88,7 @@ export const BlogGrid: React.FC = () => {
     };
 
     fetchBlogEntries();
-  }, []);
+  }, [limit]); // Agregar limit como dependencia
 
   if (isLoading) {
     return (
@@ -103,15 +114,18 @@ export const BlogGrid: React.FC = () => {
         </div>
       ) : (
         entries.map((entry, index) => (
-          <div key={index} className="flex justify-center">
-            <div className="w-full max-w-[400px]">
+          <div key={entry.id || index} className="flex justify-center">
+            <Link
+              href={`/blog/${entry.id}`}
+              className="w-full max-w-[400px] transition-transform hover:scale-105"
+            >
               <BlogCard
                 id={entry.id}
-                coverImg={entry.coverImg!} // Imagen ya validada
+                coverImg={entry.coverImg!}
                 title={entry.title}
                 content={truncateContent(entry.content)}
               />
-            </div>
+            </Link>
           </div>
         ))
       )}
