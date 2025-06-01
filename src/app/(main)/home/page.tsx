@@ -4,20 +4,15 @@ import { ScrollButton } from '@/components/buttons/Button';
 import { FaBook, FaToolbox, FaTrophy, FaCalendar } from 'react-icons/fa6';
 import { BlogGrid } from '@/components/sections/BlogGrid';
 import { HeroCard } from './HeroCard';
-import { useEffect, useState } from 'react';
-import { motion, useScroll, useInView } from 'framer-motion';
+import { AuthButton } from '@/components/auth/AuthButton';
+import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
 import blogImg from '@/assets/blog-whale-01.png';
 import eventsImg from '@/assets/events-whale.png';
-import gradesImg from '@/assets/grades-whale-01.png';
 import matsImg from '@/assets/materials-whale.png';
 
 export default function HomePage() {
-  // Para animaciones de scroll
-  const { scrollY } = useScroll();
-  const [scrolled, setScrolled] = useState(false);
-
   // Referencias para elementos que usarán inView
   const recentPostsRef = useRef(null);
   const sectionsRef = useRef(null);
@@ -30,17 +25,18 @@ export default function HomePage() {
     margin: '-100px',
   });
 
-  // Detectar scroll
-  useEffect(() => {
-    return scrollY.onChange((latest) => {
-      if (latest > 100) {
-        setScrolled(true);
-      }
-    });
-  }, [scrollY]);
-
   return (
-    <div className="w-full flex-grow bg-gradient-to-b from-body to-[var(--color-body-end)]">
+    <div className="relative w-full flex-grow bg-gradient-to-b from-body to-[var(--color-body-end)]">
+      {/* Botón de Autenticación - Esquina superior derecha */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.2 }}
+        className="fixed right-4 top-4 z-50"
+      >
+        <AuthButton />
+      </motion.div>
+
       {/* Welcome Section */}
       <section className="mx-auto mb-16 mt-36 max-w-4xl px-4">
         <div className="flex flex-col items-center justify-center p-6 pl-10 lg:p-0 lg:text-center">
@@ -76,6 +72,8 @@ export default function HomePage() {
           </motion.p>
         </div>
       </section>
+
+      {/* ...resto del código igual... */}
 
       {/* Navigation Section */}
       <section className="mx-auto mb-16 flex max-w-sm flex-col flex-wrap items-stretch justify-center gap-5 px-4 lg:max-w-full lg:flex-row lg:items-center">
@@ -114,7 +112,7 @@ export default function HomePage() {
         ))}
       </section>
 
-      {/* Publicaciones recientes - Con animación al scroll */}
+      {/* Publicaciones recientes */}
       <motion.section
         ref={recentPostsRef}
         initial={{ opacity: 0, y: 40 }}
@@ -128,7 +126,7 @@ export default function HomePage() {
         <BlogGrid limit={3} />
       </motion.section>
 
-      {/* Content Section - Con animación al scroll */}
+      {/* Content Section */}
       <section ref={sectionsRef} className="mx-auto max-w-6xl px-4 py-4">
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
@@ -166,14 +164,6 @@ export default function HomePage() {
               description:
                 'Calendario de eventos, conferencias y actividades importantes',
               url: 'events',
-            },
-            {
-              id: 'grades',
-              title: 'Calificaciones',
-              image: gradesImg.src,
-              description:
-                'Revisa y manten una revision de tus calificaciones y tareas pendientes',
-              url: 'grades',
             },
           ].map((card, index) => (
             <motion.div

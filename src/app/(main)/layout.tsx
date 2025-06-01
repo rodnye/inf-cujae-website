@@ -1,5 +1,6 @@
 import { Footer } from '@/components/sections/Footer';
 import { Navbar } from '@/components/sections/Navbar';
+import { CookiesProvider } from 'next-client-cookies/server';
 
 export default function Layout({
   children,
@@ -8,9 +9,11 @@ export default function Layout({
 }>) {
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
-      <div className="flex-grow pb-16">{children}</div>
-      <Footer />
+      <CookiesProvider>
+        <Navbar />
+        <div className="flex-grow pb-16">{children}</div>
+        <Footer />
+      </CookiesProvider>
     </div>
   );
 }
