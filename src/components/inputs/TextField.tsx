@@ -11,6 +11,7 @@ interface Props {
   required?: boolean;
   rows?: number;
   disabled?: boolean;
+  minLength?: number;
 }
 
 export const TextField: React.FC<Props> = ({
@@ -23,6 +24,7 @@ export const TextField: React.FC<Props> = ({
   required,
   rows = 1,
   disabled = false,
+  minLength,
 }) => {
   return (
     <div className={styles.container + ' ' + className}>
@@ -35,6 +37,7 @@ export const TextField: React.FC<Props> = ({
           onChange={(e) => onChange(e.target.value)}
           rows={rows}
           required={required}
+          minLength={minLength}
         />
       ) : (
         <input
@@ -46,6 +49,7 @@ export const TextField: React.FC<Props> = ({
           type={type}
           required={required}
           disabled={disabled}
+          minLength={minLength}
         />
       )}
     </div>

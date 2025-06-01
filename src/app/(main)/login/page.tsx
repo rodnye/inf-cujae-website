@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Lottie from 'lottie-react';
-import orcaMascotAnimation from '@/assets/orca_mascot.json'; // Ajusta la ruta
+import orcaMascotAnimation from '@/assets/orca_mascot.json';
+import { TextField } from '@/components/inputs/TextField';
+import { Button } from '@/components/buttons/Button';
 
 export default function LoginPage() {
   const [cid, setCid] = useState('');
@@ -72,13 +74,12 @@ export default function LoginPage() {
               >
                 Usuario
               </label>
-              <input
-                id="cid"
-                type="text"
-                value={cid}
-                onChange={(e) => setCid(e.target.value)}
-                className="focus:ring-secondary/50 block w-full rounded-md border border-gray-300 bg-gray-100 p-2.5 text-gray-900 backdrop-blur-sm focus:border-secondary focus:outline-none focus:ring-2"
+              <TextField
                 placeholder="Ej: 00112233445"
+                value={cid}
+                onChange={setCid}
+                type="text"
+                name="cid"
                 minLength={11}
                 required
               />
@@ -91,32 +92,28 @@ export default function LoginPage() {
               >
                 Contraseña
               </label>
-              <input
-                id="password"
-                type="password"
-                value={pass}
-                onChange={(e) => setPass(e.target.value)}
-                className="focus:ring-secondary/50 block w-full rounded-md border border-gray-300 bg-gray-100 p-2.5 text-gray-900 backdrop-blur-sm focus:border-secondary focus:outline-none focus:ring-2"
+              <TextField
                 placeholder="Su contraseña"
+                value={pass}
+                onChange={setPass}
+                type="password"
+                name="password"
                 minLength={6}
                 required
               />
             </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="hover:bg-secondary/90 focus:ring-secondary/50 w-full rounded-md bg-secondary p-2.5 text-black transition-colors focus:outline-none focus:ring-2 disabled:opacity-70"
-            >
-              {isLoading ? (
-                <div className="flex items-center justify-center">
-                  <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
-                  <span>Iniciando sesión...</span>
-                </div>
-              ) : (
-                'Iniciar Sesión'
-              )}
-            </button>
+            <div className="flex justify-center">
+              <Button onClick={handleSubmit} disabled={isLoading}>
+                {isLoading ? (
+                  <div className="flex items-center justify-center">
+                    <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                    <span>Iniciando sesión...</span>
+                  </div>
+                ) : (
+                  'Iniciar Sesión'
+                )}
+              </Button>
+            </div>
           </form>
         </div>
       </div>
