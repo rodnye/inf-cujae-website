@@ -20,6 +20,12 @@ jobs:
         with:
           version: 10
 
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
       # Este paso tuve que hacerlo aqui debido a que Evennode tiene problemas al compilar
       - name: Build Next.js app
         run: |
