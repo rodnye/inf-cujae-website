@@ -4,7 +4,7 @@ interface BlogCardProps {
   id: string;
   coverImg: string;
   title: string;
-  content: string;
+  description: string;
 }
 
 export function BlogCard(props: BlogCardProps) {
@@ -26,7 +26,7 @@ export function BlogCard(props: BlogCardProps) {
         </h2>
 
         <h3 className="line-clamp-3 h-40 text-lg text-white/80">
-          {props.content || 'No hay contenido disponible'}
+          {props.description || 'No hay contenido disponible'}
         </h3>
 
         <div className="mt-auto pt-4">

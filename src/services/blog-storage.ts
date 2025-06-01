@@ -208,24 +208,19 @@ export const getCoverImageURL = async (slug: string) => {
 export const readShortBlogEntry = async (
   slug: string,
 ): Promise<ShortBlogEntry | null> => {
-  const filePath = path.join(BLOG_BASE_PATH, slug, 'index.md');
   try {
-    await access(filePath);
-    const fileContent = await readFile(filePath, 'utf8');
-    const { data, content } = matter(fileContent) as unknown as {
-      data: BlogFrontmatter;
-      content: string;
-    };
+    const entry = await readBlogEntry(slug);
+    if (!entry) throw new Error('Not found');
 
-    const description = content
+    const description = entry.content
       .replace(/[#>*_`~\-]/g, '') // eliminar azúcar sintáctica de Markdown
       .trim()
-      .slice(0, 100); // acprtar a 100 letras
+      .slice(0, 200); // acprtar a 100 letras
 
     return {
-      ...data,
+      ...entry,
       description:
-        description.length === 100 ? description + '...' : description,
+        description.length === 200 ? description + '...' : description,
     };
   } catch {
     return null;
