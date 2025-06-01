@@ -68,7 +68,6 @@ export function UserProfileCard({
             {user.name}
           </h3>
 
-          {/* Datos del usuario con aparición secuencial */}
           <p
             className={`text-on-body/60 text-sm transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
             style={{ transitionDelay: '200ms' }}

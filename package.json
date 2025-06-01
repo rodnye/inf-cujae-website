@@ -19,6 +19,7 @@
     "gray-matter": "^4.0.3",
     "ioredis": "^5.6.1",
     "marked": "^15.0.12",
+    "lottie-react": "^2.4.1",
     "next": "15.3.2",
     "next-client-cookies": "^2.1.0",
     "react": "^19.0.0",
