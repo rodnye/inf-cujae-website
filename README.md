@@ -1,7 +1,6 @@
 # 🚀 Sitio Web de la Facultad de Ingeniería Informática - CUJAE
 
 [![Estado del Proyecto](https://img.shields.io/badge/Estado-_En_Desarrollo-orange?style=for-the-badge&logo=git&logoColor=white)](https://github.com/rodnye/inf-cujae-website)
-
 [![EvenNode Deploy Status](https://img.shields.io/github/actions/workflow/status/rodnye/inf-cujae-website/evennode.yml?label=EvenNode%20Host&style=for-the-badge&logo=icloud&logoColor=white)](https://github.com/rodnye/inf-cujae-website/actions/workflows/evennode.yml)
 
 > Demo: http://informatica-cujae-demo.eu-4.evennode.com
