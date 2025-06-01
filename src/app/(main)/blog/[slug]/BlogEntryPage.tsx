@@ -2,10 +2,14 @@
 import Image from 'next/image';
 import { BlogEntry } from '@/types/blog-entry';
 import { FaArrowLeft } from 'react-icons/fa6';
+import { marked } from 'marked';
+import './content.css';
 
 export const BlogEntryPage = ({ post }: { post: BlogEntry }) => {
+  const htmlContent = marked(post.content);
+
   return (
-    <article className="mx-auto w-full max-w-5xl px-4 py-12">
+    <article className="mx-auto w-full max-w-5xl px-12 py-12">
       <button
         onClick={() => history.back()}
         className="my-6 flex cursor-pointer items-center gap-4"
@@ -38,8 +42,8 @@ export const BlogEntryPage = ({ post }: { post: BlogEntry }) => {
       </header>
 
       <div
-        className="prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        className="container-blog flex max-w-none flex-col"
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
     </article>
   );

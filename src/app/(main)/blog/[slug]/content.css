@@ -1,0 +1,135 @@
+.container-blog {
+  color: #333;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.8;
+}
+
+.container-blog h1,
+.container-blog h2,
+.container-blog h3,
+.container-blog h4 {
+  color: #1a202c;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.container-blog h1 {
+  font-size: 2.25rem;
+  text-align: center;
+}
+
+.container-blog h2 {
+  font-size: 1.875rem;
+  text-align: center;
+}
+
+.container-blog h3 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.container-blog p {
+  margin-bottom: 1rem;
+}
+
+.container-blog a {
+  color: #3182ce;
+  text-decoration: underline;
+}
+
+.container-blog a:hover {
+  color: #2b6cb0;
+}
+
+.container-blog ul,
+.container-blog ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.container-blog ul li,
+.container-blog ol li {
+  margin-bottom: 0.5rem;
+}
+
+.container-blog blockquote {
+  border-left: 4px solid #cbd5e0;
+  padding-left: 1rem;
+  color: #4a5568;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.container-blog img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.container-blog code {
+  background-color: #edf2f7;
+  color: #2d3748;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.container-blog pre {
+  background-color: #2d3748;
+  color: #f7fafc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.container-blog pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .container-blog {
+    color: #e2e8f0;
+  }
+
+  .container-blog h1,
+  .container-blog h2,
+  .container-blog h3,
+  .container-blog h4 {
+    color: #edf2f7;
+  }
+
+  .container-blog a {
+    color: #63b3ed;
+  }
+
+  .container-blog a:hover {
+    color: #4299e1;
+  }
+
+  .container-blog blockquote {
+    border-left-color: #4a5568;
+    color: #a0aec0;
+  }
+
+  .container-blog code {
+    background-color: #4a5568;
+    color: #e2e8f0;
+  }
+
+  .container-blog pre {
+    background-color: #1a202c;
+    color: #e2e8f0;
+  }
+}
+
+hr {
+  margin: 1rem;
+  @apply w-full max-w-xl self-center;
+}
+
+p {
+  text-align: justify;
+}
