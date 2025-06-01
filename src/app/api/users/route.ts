@@ -32,7 +32,7 @@ export const POST = withMiddlewares(
       z.object({
         cid: z.string().min(11),
         name: z.string().min(3),
-        year: z.number(),
+        year: z.string(),
         pass: z.string().min(6),
         rpass: z.string(),
         email: z.string().email().optional(),

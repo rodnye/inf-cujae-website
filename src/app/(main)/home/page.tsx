@@ -2,7 +2,6 @@
 
 import { ScrollButton } from '@/components/buttons/Button';
 import { FaBook, FaToolbox, FaTrophy, FaCalendar } from 'react-icons/fa6';
-import { Footer } from '@/components/sections/Footer';
 import { BlogGrid } from '@/components/sections/BlogGrid';
 import { HeroCard } from './HeroCard';
 import { useEffect, useState } from 'react';

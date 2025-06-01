@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import { UserProfileCard } from './UserProfileCard';
+//import { UserProfileCard } from './UserProfileCard';
 import { GradesHistoryCard } from './GradeHistoryCard';
 import avatarLogo from '@/assets/profile_pic.png';
 import { AcademicDataCard } from './AcademicDataCard';
@@ -12,6 +11,7 @@ const mockUser = {
   year: '3er Año',
   email: 'juan.perez@cujae.edu.cu',
   id: '020426783459',
+  gender: 'M',
   promedio: 3.8,
   phone: '123456789',
   province: 'Pinar del Río',
