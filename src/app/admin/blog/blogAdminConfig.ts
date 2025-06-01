@@ -1,5 +1,6 @@
 import { FieldConfig } from '@/components/sections/AdminForm';
 import { BlogEntry } from '@/types/blog-entry';
+import { EventEntry } from '@/types/event-entry';
 
 export const emptyBlogFields: BlogEntry = {
   title: '',
@@ -7,10 +8,14 @@ export const emptyBlogFields: BlogEntry = {
   author: '',
   date: new Date(),
   tags: [],
+
+  isEvent: false,
+  startDate: new Date(),
+  expireDate: new Date(),
 };
 
 export const blogFieldConfig: Record<
-  keyof Omit<BlogEntry, 'coverImg'>,
+  keyof Omit<EventEntry, 'coverImg'>,
   FieldConfig
 > = {
   title: {
@@ -40,5 +45,17 @@ export const blogFieldConfig: Record<
   tags: {
     type: 'tags',
     label: 'Etiquetas',
+  },
+  isEvent: {
+    type: 'switch',
+    label: 'Es un Evento',
+  },
+  startDate: {
+    type: 'date',
+    label: 'SOLO para eventos: Fecha de Inicio',
+  },
+  expireDate: {
+    type: 'date',
+    label: 'SOLO para eventos: Fecha de Finalización',
   },
 };

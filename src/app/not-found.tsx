@@ -1,8 +1,7 @@
-import { LineButton } from '@/components/buttons/LineButton';
 import { Navbar } from '@/components/sections/Navbar';
-import Link from 'next/link';
 import Image from 'next/image';
 import error404Img from '@/assets/error_404.png';
+import { Button } from '@/components/buttons/Button';
 
 export default function NotFound() {
   return (
@@ -17,9 +16,7 @@ export default function NotFound() {
 
       <p className="p-6">Ups! El enlace que solicitas parece estar roto.</p>
 
-      <Link href="/home">
-        <LineButton>Ir al inicio</LineButton>
-      </Link>
+      <Button to="/home">Ir al inicio</Button>
     </main>
   );
 }

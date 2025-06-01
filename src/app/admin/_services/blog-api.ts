@@ -1,5 +1,6 @@
 'use client';
 import { BlogEntry } from '@/types/blog-entry';
+import { EventEntry } from '@/types/event-entry';
 import { redirect } from 'next/navigation';
 
 const handleResponse = async (response: Response) => {
@@ -38,9 +39,11 @@ export const fetchBlogEntry = async (slug: string) => {
   }
 };
 
-export const createBlogEntry = async (entryData: BlogEntry) => {
+export const createBlogEntry = async (entryData: BlogEntry | EventEntry) => {
+  const url = entryData.isEvent ? '/api/events' : '/api/blog';
+
   try {
-    const response = await fetch('/api/blog', {
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

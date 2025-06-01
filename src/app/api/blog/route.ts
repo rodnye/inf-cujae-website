@@ -20,12 +20,31 @@ export const POST = withMiddlewares(
   [
     adminValidator(),
     jsonBodyValidator(
-      z.object({
-        title: z.string().min(5),
-        author: z.string().min(5),
-        tags: z.array(z.string().min(3)).min(1),
-        content: z.string().min(20),
-      }),
+      z
+        .object({
+          title: z.string().min(5),
+          author: z.string().min(5),
+          date: z.string().date(),
+          tags: z.array(z.string().min(3)).min(1),
+          content: z.string().min(20),
+        })
+        .strict()
+        .and(
+          z
+            .object({
+              isEvent: z.literal(false),
+            })
+            .strict()
+            .or(
+              z
+                .object({
+                  isEvent: z.literal(true),
+                  startDate: z.string().date().optional(),
+                  expireDate: z.string().date(),
+                })
+                .strict(),
+            ),
+        ),
     ),
   ],
   async (request) => {

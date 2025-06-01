@@ -12,10 +12,11 @@ import { AdminForm } from '@/components/sections/AdminForm';
 import { blogFieldConfig, emptyBlogFields } from './blogAdminConfig';
 import { ListManager } from '@/components/sections/ListManager';
 import { FaEye, FaTrash, FaUpload } from 'react-icons/fa6';
+import { EventEntry } from '@/types/event-entry';
 
 export function BlogAdminPage() {
   const [blogEntries, setBlogEntries] = useState<string[]>([]);
-  const [form, setForm] = useState<BlogEntry>(emptyBlogFields);
+  const [form, setForm] = useState<BlogEntry>({ ...emptyBlogFields });
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -80,7 +81,7 @@ export function BlogAdminPage() {
       alert(result.message || 'Entrada de blog creada exitosamente');
 
       // reset
-      setForm(emptyBlogFields);
+      setForm({ ...emptyBlogFields });
     } catch (e) {
       if (e instanceof Error) setError(e.message);
     }
@@ -119,7 +120,7 @@ export function BlogAdminPage() {
         <section className="mb-8 rounded-lg p-6 shadow-md">
           <h2 className="mb-4 text-xl font-semibold">Crear Nueva Entrada</h2>
           <AdminForm
-            data={form as Omit<BlogEntry, 'coverImg'>}
+            data={form as Omit<EventEntry, 'coverImg'>}
             onChange={(data) => setForm(data)}
             fieldConfig={blogFieldConfig}
             onSubmit={handleSubmit}

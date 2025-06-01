@@ -13,7 +13,7 @@ export type BaseFieldConfig = {
 };
 
 export type TextFieldConfig = BaseFieldConfig & {
-  type: 'text' | 'date' | 'number' | 'email' | 'password' | 'tags';
+  type: 'text' | 'date' | 'switch' | 'number' | 'email' | 'password' | 'tags';
 };
 
 export type AreaFieldConfig = BaseFieldConfig & {
@@ -56,7 +56,7 @@ export const AdminForm = <T extends Record<string, any>>({
   }, [externalData]);
 
   const handleChange =
-    (fieldName: keyof T) => (value: string | number | string[]) => {
+    (fieldName: keyof T) => (value: string | number | string[] | boolean) => {
       onChange?.({ ...formData, [fieldName]: value } as T);
       setFormData((prev) => ({ ...prev, [fieldName]: value }));
     };
@@ -93,7 +93,19 @@ export const AdminForm = <T extends Record<string, any>>({
               {config.required && <span className="text-red-500">*</span>}
             </label>
 
-            {config.type === 'tags' ? (
+            {config.type === 'switch' ? (
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id={fieldName}
+                  checked={!!value}
+                  onChange={(e) => handleChange(key)(e.target.checked)}
+                  className="mr-2"
+                  disabled={config.disabled}
+                />
+                <span>{config.label}</span>
+              </div>
+            ) : config.type === 'tags' ? (
               <div>
                 <div className="flex items-center">
                   <TextField
