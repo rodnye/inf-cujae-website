@@ -1,3 +1,4 @@
+'use server';
 import {
   access,
   mkdir,
@@ -5,6 +6,7 @@ import {
   writeFile,
   readdirSync,
   remove,
+  existsSync,
 } from 'fs-extra';
 import path from 'path';
 import matter from 'gray-matter';
@@ -53,6 +55,7 @@ export const readBlogEntry = async (
       author: data.author,
       tags: data.tags || [],
       content: content.trim(),
+      coverImg: (await getCoverImageURL(slug)) || undefined,
     };
   } catch {
     return null;
@@ -90,4 +93,30 @@ export const listBlogEntries = async (): Promise<string[]> => {
   } catch {
     return [];
   }
+};
+
+export const saveBlogCoverImage = async (slug: string, imageBuffer: Buffer) => {
+  const dirPath = await ensureDirectoryExists(slug);
+  const coverPath = path.join(dirPath, 'cover.jpg');
+  await writeFile(coverPath, imageBuffer);
+  return coverPath;
+};
+
+export const existsBlogEntry = async (slug: string) => {
+  return existsSync(path.join(BLOG_BASE_PATH, slug));
+};
+
+export const readBlogCoverImage = async (slug: string) => {
+  const coverPath = path.join(BLOG_BASE_PATH, slug, '/cover.jpg');
+  try {
+    await access(coverPath);
+    return await readFile(coverPath);
+  } catch {
+    return null;
+  }
+};
+
+export const getCoverImageURL = async (slug: string) => {
+  const coverPath = path.join(BLOG_BASE_PATH, slug, '/cover.jpg');
+  return existsSync(coverPath) ? path.join('/api/blog', slug, '/cover') : null;
 };

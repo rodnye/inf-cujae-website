@@ -6,11 +6,12 @@ import {
   deleteBlogEntry,
   fetchBlogEntries,
   fetchBlogEntry,
+  uploadBlogCover,
 } from '../_services/blog-api';
 import { AdminForm } from '@/components/sections/AdminForm';
 import { blogFieldConfig, emptyBlogFields } from './blogAdminConfig';
 import { ListManager } from '@/components/sections/ListManager';
-import { FaEye, FaTrash } from 'react-icons/fa6';
+import { FaEye, FaTrash, FaUpload } from 'react-icons/fa6';
 
 export function BlogAdminPage() {
   const [blogEntries, setBlogEntries] = useState<string[]>([]);
@@ -52,6 +53,26 @@ export function BlogAdminPage() {
     }
   };
 
+  const handleUploadCover = async (slug: string) => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+
+    fileInput.onchange = async () => {
+      if (fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        try {
+          const result = await uploadBlogCover(slug, file);
+          alert(result.message || 'Imagen de portada subida exitosamente');
+        } catch (e) {
+          if (e instanceof Error) setError(e.message);
+        }
+      }
+    };
+
+    fileInput.click();
+  };
+
   const handleSubmit = async () => {
     try {
       form.tags.shift(); // remove the first input tag
@@ -80,6 +101,11 @@ export function BlogAdminPage() {
             {
               label: <FaEye />,
               onClick: handlePreviewEntry,
+            },
+            {
+              label: <FaUpload />,
+              onClick: handleUploadCover,
+              color: 'text-blue-600',
             },
             {
               label: <FaTrash />,
