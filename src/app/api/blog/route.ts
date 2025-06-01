@@ -28,21 +28,17 @@ export const POST = withMiddlewares(
           tags: z.array(z.string().min(3)).min(1),
           content: z.string().min(20),
         })
-        .strict()
         .and(
           z
             .object({
               isEvent: z.literal(false),
             })
-            .strict()
             .or(
-              z
-                .object({
-                  isEvent: z.literal(true),
-                  startDate: z.string().date().optional(),
-                  expireDate: z.string().date(),
-                })
-                .strict(),
+              z.object({
+                isEvent: z.literal(true),
+                startDate: z.string().date().optional(),
+                expireDate: z.string().date(),
+              }),
             ),
         ),
     ),
