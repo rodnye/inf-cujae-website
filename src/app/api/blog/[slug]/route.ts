@@ -21,7 +21,6 @@ export const GET = withMiddlewares(
   async ({ data: { params } }) => {
     const { slug } = params as { slug: string };
     const entry = await readBlogEntry(slug);
-
     return NextResponse.json(entry);
   },
 );

@@ -67,3 +67,19 @@ export const deleteBlogEntry = async (slug: string) => {
     throw error;
   }
 };
+
+export async function uploadBlogCover(slug: string, file: File) {
+  const formData = new FormData();
+  formData.append('cover', file);
+
+  const response = await fetch(`/api/blog/${slug}/cover`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al subir la imagen de portada');
+  }
+
+  return response.json();
+}

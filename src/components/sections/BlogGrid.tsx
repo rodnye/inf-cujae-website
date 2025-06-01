@@ -1,17 +1,14 @@
 'use client';
 import { useEffect, useState } from 'react';
-import BlogEntry from './BlogEntry';
-
-interface BlogEntry {
-  img: string;
-  title: string;
-  content: string;
-}
 
 import fallbackImg from '@/assets/error_404.png';
+import { BlogEntry } from '@/types/blog-entry';
+import { BlogCard } from './BlogCard';
+
+type BlogEntryWithId = BlogEntry & { id: string };
 
 export const BlogGrid: React.FC = () => {
-  const [entries, setEntries] = useState<BlogEntry[]>([]);
+  const [entries, setEntries] = useState<BlogEntryWithId[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,37 +24,45 @@ export const BlogGrid: React.FC = () => {
       try {
         setIsLoading(true);
 
+        // TODO: hacer que solo obtenga los 3 últimos
         const slugsResponse = await fetch('/api/blog');
         if (!slugsResponse.ok) {
           throw new Error(`HTTP error! Status: ${slugsResponse.status}`);
         }
 
-        const slugsData = await slugsResponse.json();
-        if (!slugsData.slugs || !Array.isArray(slugsData.slugs)) {
-          throw new Error('Formato de respuesta de API incorrecto');
-        }
+        const slugsData = (await slugsResponse.json()) as { slugs: string[] };
 
         if (slugsData.slugs.length === 0) {
           setEntries([]);
           return;
         }
 
-        const entriesPromises = slugsData.slugs.map(async (slug: string) => {
-          const entryResponse = await fetch(`/api/blog/${slug}`);
-          if (!entryResponse.ok) {
-            console.error(`Error al obtener el blog ${slug}`);
-            return null;
-          }
-          return await entryResponse.json();
-        });
+        const entriesResults: (BlogEntryWithId | null)[] = await Promise.all(
+          // tomar solo los primeros 3
+          slugsData.slugs
+            .slice(0, 3)
+            // pedir los contenidos
+            .map(async (slug) => {
+              const entryResponse = await fetch(`/api/blog/${slug}`);
+              if (!entryResponse.ok) {
+                console.error(`Error al obtener el blog ${slug}`);
+                return null;
+              }
+              return {
+                id: slug,
+                ...((await entryResponse.json()) as BlogEntry),
+              };
+            }),
+        );
 
-        const entriesResults = await Promise.all(entriesPromises);
+        console.log(entriesResults);
 
-        const validEntries = entriesResults
+        // filtrar solicitudes fallidas
+        const validEntries: BlogEntryWithId[] = entriesResults
           .filter((entry) => entry !== null)
           .map((entry) => ({
             ...entry,
-            img: entry.img || fallbackImg, // Validar y asignar imagen de respaldo
+            coverImg: entry.coverImg || fallbackImg.src,
           }));
 
         setEntries(validEntries);
@@ -100,9 +105,9 @@ export const BlogGrid: React.FC = () => {
         entries.map((entry, index) => (
           <div key={index} className="flex justify-center">
             <div className="w-full max-w-[400px]">
-              <BlogEntry
-                id={entry.title}
-                img={entry.img} // Imagen ya validada
+              <BlogCard
+                id={entry.id}
+                coverImg={entry.coverImg!} // Imagen ya validada
                 title={entry.title}
                 content={truncateContent(entry.content)}
               />

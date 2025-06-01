@@ -1,20 +1,20 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-interface BlogEntryProps {
+interface BlogCardProps {
   id: string;
-  img: string;
+  coverImg: string;
   title: string;
   content: string;
 }
 
-export default function BlogEntry(props: BlogEntryProps) {
+export function BlogCard(props: BlogCardProps) {
   return (
     <div className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-[#36454F]/40 bg-[#36454F]/20 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-[#FFEA00]/20 hover:shadow-xl hover:shadow-[#36454F]/30">
       <Link href={`/blog/${props.id}`}>
         <div className="relative h-60 w-full overflow-hidden">
           <Image
-            src={props.img}
+            src={props.coverImg}
             alt={props.title || 'Blog post'}
             fill
             sizes="(max-width: 768px) 100vw, 400px"

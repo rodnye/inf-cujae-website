@@ -60,6 +60,7 @@ export default function HomePage() {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="mb-2 mt-5 max-w-2xl text-lg md:text-xl"
           >
+            {/** TODO: revisar esta frase */}
             Un lugar donde todos aquellos que soñaban con crear aplicaciones,
             ser hackers, dar vida a los mas bellos juegos y ser los mejores
             programadores, se reunen para esta vez cumplir sus sueños.
@@ -122,7 +123,7 @@ export default function HomePage() {
         transition={{ duration: 1 }}
         className="mx-auto mb-16 max-w-6xl px-4"
       >
-        <h2 className="mb-6 text-center text-3xl font-bold text-[var(--color-secondary)]">
+        <h2 className="mb-6 text-center text-3xl font-bold text-secondary">
           Publicaciones más recientes
         </h2>
         <BlogGrid />
@@ -134,7 +135,7 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 40 }}
           animate={isSectionsInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="mb-10 text-center text-3xl font-bold text-[var(--color-secondary)]"
+          className="mb-10 text-center text-3xl font-bold text-secondary"
         >
           Explora Nuestras Secciones
         </motion.h2>
