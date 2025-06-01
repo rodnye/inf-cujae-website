@@ -1,0 +1,42 @@
+name: Deploy to EvenNode
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ' '
+      - name: Add git.evennode.com to known_hosts
+        run: |
+          ssh-keyscan -H git.evennode.com > ~/.ssh/known_hosts
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Este paso tuve que hacerlo aqui debido a que Evennode tiene problemas al compilar
+      - name: Build Next.js app
+        run: |
+          npm ci
+          npm run build
+          rm -rf .next/cache
+
+      - name: Git credentials
+        run: |
+          git config --global user.email "${{ secrets.GIT_EMAIL }}"
+          git config --global user.name "${{ secrets.GIT_NAME }}"
+
+      - name: Deploy to evennode.com
+        run: |
+          echo "${{ secrets.DOT_ENV_CONTENT }}" > .env
+          git add .next .env -f
+          git commit -m '[next production build]'
+          git remote add evennode ${{ secrets.EVENNODE_REPO_URL }}
+          git push evennode main -f
