@@ -2,10 +2,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useCookies } from 'next-client-cookies';
 import Lottie from 'lottie-react';
 import orcaMascotAnimation from '@/assets/orca_mascot.json';
-import { TextField } from '@/components/inputs/TextField';
-import { Button } from '@/components/buttons/Button';
 
 export default function LoginPage() {
   const [cid, setCid] = useState('');
@@ -13,6 +12,7 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const cookies = useCookies();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,13 +29,22 @@ export default function LoginPage() {
       });
 
       const data = await response.json();
+      console.log('Respuesta del servidor:', data);
 
       if (!response.ok) {
         throw new Error(data.message || 'Error al iniciar sesión');
       }
 
-      // Redirigir al usuario después de un inicio de sesión exitoso
-      router.push('/home');
+      if (data.session) {
+        cookies.set('session', data.session, {
+          expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hora
+          path: '/',
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+        });
+      }
+
+      router.push(data.redirect || '/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
@@ -74,12 +83,13 @@ export default function LoginPage() {
               >
                 Usuario
               </label>
-              <TextField
-                placeholder="Ej: 00112233445"
-                value={cid}
-                onChange={setCid}
+              <input
+                id="cid"
                 type="text"
-                name="cid"
+                value={cid}
+                onChange={(e) => setCid(e.target.value)}
+                className="focus:ring-secondary/50 block w-full rounded-md border border-gray-300 bg-gray-100 p-2.5 text-gray-900 backdrop-blur-sm focus:border-secondary focus:outline-none focus:ring-2"
+                placeholder="Ej: 00112233445"
                 minLength={11}
                 required
               />
@@ -92,28 +102,32 @@ export default function LoginPage() {
               >
                 Contraseña
               </label>
-              <TextField
-                placeholder="Su contraseña"
-                value={pass}
-                onChange={setPass}
+              <input
+                id="password"
                 type="password"
-                name="password"
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
+                className="focus:ring-secondary/50 block w-full rounded-md border border-gray-300 bg-gray-100 p-2.5 text-gray-900 backdrop-blur-sm focus:border-secondary focus:outline-none focus:ring-2"
+                placeholder="Su contraseña"
                 minLength={6}
                 required
               />
             </div>
-            <div className="flex justify-center">
-              <Button onClick={handleSubmit} disabled={isLoading}>
-                {isLoading ? (
-                  <div className="flex items-center justify-center">
-                    <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
-                    <span>Iniciando sesión...</span>
-                  </div>
-                ) : (
-                  'Iniciar Sesión'
-                )}
-              </Button>
-            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="hover:bg-secondary/90 focus:ring-secondary/50 w-full rounded-md bg-secondary p-2.5 text-black transition-colors focus:outline-none focus:ring-2 disabled:opacity-70"
+            >
+              {isLoading ? (
+                <div className="flex items-center justify-center">
+                  <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                  <span>Iniciando sesión...</span>
+                </div>
+              ) : (
+                'Iniciar Sesión'
+              )}
+            </button>
           </form>
         </div>
       </div>

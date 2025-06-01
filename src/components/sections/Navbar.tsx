@@ -11,7 +11,9 @@ export const Navbar: React.FC = () => {
       <nav className="flex w-full flex-col">
         {/** el pl-20 es para cubrir el espacio BurgerToggle */}
         <div className="relative w-full bg-primary bg-opacity-95 p-6 pl-20">
-          s
+          <h1 className="text-center text-2xl font-bold tracking-wide text-secondary md:text-3xl lg:text-4xl">
+            Facultad de Ingeniería Informática
+          </h1>
         </div>
       </nav>
 
