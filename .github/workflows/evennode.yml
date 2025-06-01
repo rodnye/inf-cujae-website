@@ -13,19 +13,18 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_KEY }}
-          known_hosts: ' '
-      - name: Add git.evennode.com to known_hosts
-        run: |
-          ssh-keyscan -H git.evennode.com > ~/.ssh/known_hosts
-      - uses: actions/checkout@v2
+          known_hosts: 'git.evennode.com'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          fetch-depth: 0
+          version: 10
 
       # Este paso tuve que hacerlo aqui debido a que Evennode tiene problemas al compilar
       - name: Build Next.js app
         run: |
-          npm ci
-          npm run build
+          pnpm install
+          pnpm build
           rm -rf .next/cache
 
       - name: Git credentials
