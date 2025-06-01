@@ -13,7 +13,15 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_KEY }}
-          known_hosts: 'git.evennode.com'
+          known_hosts: ' '
+
+      - name: Add git.evennode.com to known_hosts
+        run: |
+          ssh-keyscan -H git.evennode.com > ~/.ssh/known_hosts
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -44,4 +52,4 @@ jobs:
           git add .next .env -f
           git commit -m '[next production build]'
           git remote add evennode ${{ secrets.EVENNODE_REPO_URL }}
-          git push evennode main -f
+          git push evennode main  -f
