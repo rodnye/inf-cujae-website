@@ -4,7 +4,7 @@ import { ScrollButton } from '@/components/buttons/Button';
 import { FaBook, FaToolbox, FaTrophy, FaCalendar } from 'react-icons/fa6';
 import { BlogGrid } from '@/components/sections/BlogGrid';
 import { HeroCard } from './HeroCard';
-import { AuthButton } from '@/components/auth/AuthButton';
+// import { AuthButton } from '@/components/auth/AuthButton'; // Eliminado
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
@@ -27,16 +27,6 @@ export default function HomePage() {
 
   return (
     <div className="relative w-full flex-grow bg-gradient-to-b from-body to-[var(--color-body-end)]">
-      {/* Botón de Autenticación - Esquina superior derecha */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        className="fixed right-4 top-4 z-50"
-      >
-        <AuthButton />
-      </motion.div>
-
       {/* Welcome Section */}
       <section className="mx-auto mb-16 mt-36 max-w-4xl px-4">
         <div className="flex flex-col items-center justify-center p-6 pl-10 lg:p-0 lg:text-center">
@@ -72,8 +62,6 @@ export default function HomePage() {
           </motion.p>
         </div>
       </section>
-
-      {/* ...resto del código igual... */}
 
       {/* Navigation Section */}
       <section className="mx-auto mb-16 flex max-w-sm flex-col flex-wrap items-stretch justify-center gap-5 px-4 lg:max-w-full lg:flex-row lg:items-center">
