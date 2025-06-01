@@ -95,7 +95,7 @@ export default function HomePage() {
           },
           {
             icon: <FaTrophy />,
-            text: 'Clasificaciones',
+            text: 'Calificaciones',
             scrollTo: 'grades',
             delay: 1.1,
           },
@@ -125,7 +125,7 @@ export default function HomePage() {
         <h2 className="mb-6 text-center text-3xl font-bold text-secondary">
           Publicaciones más recientes
         </h2>
-        <BlogGrid />
+        <BlogGrid limit={3} />
       </motion.section>
 
       {/* Content Section - Con animación al scroll */}
