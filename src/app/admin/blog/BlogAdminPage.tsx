@@ -119,7 +119,7 @@ export function BlogAdminPage() {
         <section className="mb-8 rounded-lg p-6 shadow-md">
           <h2 className="mb-4 text-xl font-semibold">Crear Nueva Entrada</h2>
           <AdminForm
-            data={form}
+            data={form as Omit<BlogEntry, 'coverImg'>}
             onChange={(data) => setForm(data)}
             fieldConfig={blogFieldConfig}
             onSubmit={handleSubmit}

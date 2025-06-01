@@ -9,7 +9,10 @@ export const emptyBlogFields: BlogEntry = {
   tags: [],
 };
 
-export const blogFieldConfig: Record<keyof BlogEntry, FieldConfig> = {
+export const blogFieldConfig: Record<
+  keyof Omit<BlogEntry, 'coverImg'>,
+  FieldConfig
+> = {
   title: {
     type: 'text',
     label: 'Título',
