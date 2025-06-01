@@ -40,10 +40,8 @@ export const fetchBlogEntry = async (slug: string) => {
 };
 
 export const createBlogEntry = async (entryData: BlogEntry | EventEntry) => {
-  const url = entryData.isEvent ? '/api/events' : '/api/blog';
-
   try {
-    const response = await fetch(url, {
+    const response = await fetch('/api/blog', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
