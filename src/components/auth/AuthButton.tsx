@@ -92,7 +92,7 @@ export const AuthButton: React.FC = memo(() => {
 
             <div className="py-1">
               <Link
-                href="/profile"
+                href="/grades"
                 className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100"
                 onClick={() => setIsDropdownOpen(false)}
               >
