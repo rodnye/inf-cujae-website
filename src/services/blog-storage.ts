@@ -217,6 +217,7 @@ export const readShortBlogEntry = async (
       .trim()
       .slice(0, 200); // acprtar a 100 letras
 
+    // FIX: esta enviando tambien la prop content
     return {
       ...entry,
       description:

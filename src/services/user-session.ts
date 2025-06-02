@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto';
 import { cookies } from 'next/headers';
 import { connectRedis, disconnectRedis } from './redis-storage';
 import { readUser } from './user-storage';
-import { User } from '@/types/user';
+import { FullUser } from '@/types/user';
 
 // duración de la sesion
 const SESSION_DURATION_MS = 24 * 60 * 60 * 1000;
@@ -69,7 +69,7 @@ export const verifyUserSession = async (token: string) => {
 /**
  *
  */
-export const createUserSession = async (user: User) => {
+export const createUserSession = async (user: FullUser) => {
   const token = randomUUID();
   const expires = Date.now() + SESSION_DURATION_MS;
 

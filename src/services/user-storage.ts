@@ -8,7 +8,7 @@ import {
   remove,
 } from 'fs-extra';
 import path from 'path';
-import { User } from '@/types/user';
+import { FullUser } from '@/types/user';
 
 const USER_BASE_PATH = path.join(process.cwd(), 'database', 'users');
 
@@ -22,14 +22,14 @@ const ensureUserDirectoryExists = async (cid: string) => {
   return userPath;
 };
 
-export const createUser = async (user: User) => {
+export const createUser = async (user: FullUser) => {
   const userPath = await ensureUserDirectoryExists(user.cid);
   const filePath = path.join(userPath, 'user.json');
   await writeFile(filePath, JSON.stringify(user, null, 2));
   return user;
 };
 
-export const readUser = async (cid: string): Promise<User | null> => {
+export const readUser = async (cid: string): Promise<FullUser | null> => {
   const filePath = path.join(USER_BASE_PATH, cid, 'user.json');
   try {
     await access(filePath);
@@ -40,7 +40,7 @@ export const readUser = async (cid: string): Promise<User | null> => {
   }
 };
 
-export const updateUser = async (cid: string, user: User) => {
+export const updateUser = async (cid: string, user: FullUser) => {
   const userPath = await ensureUserDirectoryExists(cid);
   const filePath = path.join(userPath, 'user.json');
   await writeFile(filePath, JSON.stringify(user, null, 2));
