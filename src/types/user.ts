@@ -2,7 +2,6 @@ export type User = {
   cid: string;
   name: string;
   year: number;
-  pass: string;
   email?: string;
   address?: string;
   phone?: string;
@@ -17,4 +16,8 @@ export type User = {
       grade: number;
     }[];
   };
+};
+
+export type FullUser = User & {
+  pass: string;
 };

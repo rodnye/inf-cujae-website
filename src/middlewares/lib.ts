@@ -16,7 +16,9 @@ export type MiddlewareResponse =
       data?: MiddlewareRequest['data'];
     };
 
-type ExtraProps = { params: Promise<{ [fragment: string]: string }> };
+type ExtraProps = {
+  params: Promise<{ [fragment: string]: string }>;
+};
 export type RequestHandler = (
   r: MiddlewareRequest,
   extra: ExtraProps,
