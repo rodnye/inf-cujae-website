@@ -60,7 +60,9 @@ const EventsPage: React.FC = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch('/api/events');
+        const response = await fetch(
+          '/api/blog?only_events=true&format=short_entries',
+        );
         if (!response.ok) {
           throw new Error(`Error al obtener eventos: ${response.statusText}`);
         }
@@ -96,7 +98,7 @@ const EventsPage: React.FC = () => {
             return {
               id: event.id,
               title: event.title,
-              content: event.content,
+              content: event.description,
               author: event.author,
               slug: event.slug || event.id, // Usar ID como slug si no existe
               createdAt: createdAt || new Date(), // Fallback a fecha actual
@@ -112,7 +114,8 @@ const EventsPage: React.FC = () => {
             };
           });
 
-          console.log('Eventos procesados:', processedEvents); // Para debug
+          // FIX: Mala conversion de tipos conversion de tipos
+          // @ts-ignore
           setEvents(processedEvents);
         } else {
           console.warn(
@@ -300,8 +303,8 @@ const EventsPage: React.FC = () => {
 
               return (
                 <Link
-                  key={event.id}
-                  href={`/events/${event.slug}`}
+                  key={event.slug}
+                  href={`/blog/${event.slug}`}
                   className="group block rounded-2xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 focus:ring-offset-[#0b1013]"
                 >
                   <article

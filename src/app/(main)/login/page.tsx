@@ -1,20 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useCookies } from 'next-client-cookies';
 import Lottie from 'lottie-react';
 import orcaMascotAnimation from '@/assets/orca_mascot.json';
 import { TextField } from '@/components/inputs/TextField';
 import { Button } from '@/components/buttons/Button';
+import { useUserStore } from '@/store/user';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function LoginPage() {
   const [cid, setCid] = useState('');
   const [pass, setPass] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const userData = useAuth().user;
+  const setSessionKey = useUserStore((s) => s._setSessionKey);
   const router = useRouter();
-  const cookies = useCookies();
+
+  useLayoutEffect(() => {
+    if (userData) return router.push('/home');
+  }, [userData]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,22 +37,13 @@ export default function LoginPage() {
       });
 
       const data = await response.json();
-      console.log('Respuesta del servidor:', data);
 
       if (!response.ok) {
         throw new Error(data.message || 'Error al iniciar sesión');
       }
 
-      if (data.session) {
-        cookies.set('session', data.session, {
-          expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hora
-          path: '/',
-          sameSite: 'lax',
-          secure: process.env.NODE_ENV === 'production',
-        });
-      }
-
-      router.push(data.redirect || '/');
+      setSessionKey(data.session);
+      router.push(data.redirect);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
