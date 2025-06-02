@@ -2,12 +2,14 @@ import { Navbar } from '@/components/sections/Navbar';
 import Image from 'next/image';
 import error404Img from '@/assets/error_404.png';
 import { Button } from '@/components/buttons/Button';
+import { CookiesProvider } from 'next-client-cookies/server';
 
 export default function NotFound() {
   return (
     <main className="flex w-full flex-col items-center">
-      <Navbar />
-
+      <CookiesProvider>
+        <Navbar />
+      </CookiesProvider>
       <Image
         className="m-3 w-full max-w-60"
         alt="404-error"
