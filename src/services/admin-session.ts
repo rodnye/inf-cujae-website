@@ -8,7 +8,6 @@ import { connectRedis, disconnectRedis } from './redis-storage';
  * Verificar API Key de administrador
  */
 export const verifyApiKey = async (apiKey: string) => {
-  // TODO: cambiar esto por una validación de variable de entorno
   return apiKey === process.env.ADMIN_PASS;
 };
 

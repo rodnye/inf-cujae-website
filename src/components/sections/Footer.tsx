@@ -25,8 +25,7 @@ export const Footer: React.FC = () => {
               <FaInstagram className="text-2xl text-white" />
               <span className="text-white">Instagram:</span>
               <a
-                // TODO: poner enlace de Instagram
-                href="https://www.instagram.com/inf_cujae/&ved=2ahUKEwj95_GO_MyNAxVoQzABHWmLH5wQFnoECB0QAQ&usg=AOvVaw2rbLeg12TcuWvGMUxC6cMp"
+                href="https://www.instagram.com/inf_cujae"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-secondary transition-colors duration-300 hover:underline"
