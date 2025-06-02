@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { BurgerToggle } from '../buttons/BurgerToggle';
 import { SlideBar } from '../dialogs/SlideBar';
 import { LineButton } from '../buttons/LineButton';
-import { AuthButton } from '../auth/AuthButton'; // Importación añadida
+import { AuthButton } from '../auth/AuthButton';
 
 export const Navbar: React.FC = () => {
   const [openSlide, setOpenSlide] = useState(false);
+
   return (
     <>
       <nav className="flex w-full flex-col">
@@ -17,7 +18,7 @@ export const Navbar: React.FC = () => {
           </h1>
 
           <div>
-            <AuthButton /> {/* Botón de autenticación añadido */}
+            <AuthButton />
           </div>
         </div>
       </nav>
@@ -35,16 +36,16 @@ export const Navbar: React.FC = () => {
         <SlideBar open={openSlide}>
           <ul className="flex h-full w-full flex-col items-center space-y-4 bg-primary p-6 pt-20">
             <li>
-              <LineButton>Página Principal</LineButton>
+              <LineButton to="/home">Página Principal</LineButton>
             </li>
             <li>
-              <LineButton>Artículos</LineButton>
+              <LineButton to="/blog">Blog</LineButton>
             </li>
             <li>
-              <LineButton>Eventos</LineButton>
+              <LineButton to="/events">Eventos</LineButton>
             </li>
             <li>
-              <LineButton>¿Quienes somos?</LineButton>
+              <LineButton to="/history">¿Quienes somos?</LineButton>
             </li>
           </ul>
         </SlideBar>

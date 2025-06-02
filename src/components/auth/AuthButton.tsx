@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, memo } from 'react';
+import { useState } from 'react';
 import { FaUser, FaChevronDown, FaSignal } from 'react-icons/fa6';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
 
-export const AuthButton: React.FC = memo(() => {
-  const { user, isAuthenticated, isLoading, logout } = useAuth();
+export const AuthButton = () => {
+  const { user, isLoading, logout } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Mostrar un indicador de carga mientras se verifica la autenticación
@@ -28,7 +28,7 @@ export const AuthButton: React.FC = memo(() => {
   }
 
   // Mostrar el botón de inicio de sesión si el usuario no está autenticado
-  if (!isAuthenticated) {
+  if (!user) {
     return (
       <motion.div
         key="login-button"
@@ -51,7 +51,7 @@ export const AuthButton: React.FC = memo(() => {
   // Mostrar el botón con el nombre del usuario si está autenticado
   return (
     <motion.div
-      key={`user-${user?.id}`}
+      key={`user-${user.cid}`}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
@@ -63,7 +63,7 @@ export const AuthButton: React.FC = memo(() => {
         className="hover:bg-secondary/90 flex items-center gap-2 rounded-lg bg-secondary px-4 py-2 font-medium text-black shadow-lg backdrop-blur-sm transition-all duration-200 hover:scale-105"
       >
         <FaUser className="text-sm" />
-        <span>Hola, {user?.name}</span>
+        <span>Hola, {user.name.split(' ')[0]}</span>
         <FaChevronDown
           className={`text-xs transition-transform duration-200 ${
             isDropdownOpen ? 'rotate-180' : ''
@@ -81,18 +81,16 @@ export const AuthButton: React.FC = memo(() => {
             className="absolute right-0 top-full z-10 mt-2 w-48 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
           >
             <div className="border-b bg-gray-50 p-3">
-              <p className="font-medium text-gray-900">{user?.name}</p>
-              {user?.email && (
+              <p className="font-medium text-gray-900">{user.name}</p>
+              {user.email && (
                 <p className="text-sm text-gray-500">{user.email}</p>
               )}
-              {user?.cid && (
-                <p className="text-sm text-gray-500">CID: {user.cid}</p>
-              )}
+              <p className="text-sm text-gray-500">CID: {user.cid}</p>
             </div>
 
             <div className="py-1">
               <Link
-                href="/grades"
+                href="/profile"
                 className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100"
                 onClick={() => setIsDropdownOpen(false)}
               >
@@ -123,6 +121,4 @@ export const AuthButton: React.FC = memo(() => {
       )}
     </motion.div>
   );
-});
-
-AuthButton.displayName = 'AuthButton';
+};
