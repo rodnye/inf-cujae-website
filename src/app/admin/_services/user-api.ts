@@ -1,5 +1,5 @@
 'use client';
-import { User } from '@/types/user';
+import { FullUser } from '@/types/user';
 
 export const fetchUsers = async (): Promise<string[]> => {
   const response = await fetch('/api/users');
@@ -7,15 +7,15 @@ export const fetchUsers = async (): Promise<string[]> => {
   return (await response.json()).usersCid;
 };
 
-export const fetchUser = async (cid: string): Promise<User> => {
+export const fetchUser = async (cid: string): Promise<FullUser> => {
   const response = await fetch(`/api/users/${cid}`);
   if (!response.ok) throw new Error('Error fetching user');
   return (await response.json()).user;
 };
 
 export const createUser = async (
-  user: User & { rpass: string },
-): Promise<User> => {
+  user: FullUser & { rpass: string },
+): Promise<FullUser> => {
   const response = await fetch('/api/users', {
     method: 'POST',
     headers: {
@@ -32,8 +32,8 @@ export const createUser = async (
 };
 
 export const updateUser = async (
-  user: User & { rpass: string },
-): Promise<User> => {
+  user: FullUser & { rpass: string },
+): Promise<FullUser> => {
   const response = await fetch('/api/users/' + user.cid, {
     method: 'PUT',
     headers: {

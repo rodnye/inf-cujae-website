@@ -2,7 +2,7 @@ import { withMiddlewares } from '@/middlewares/lib';
 import { adminValidator } from '@/middlewares/admin-validator';
 import { jsonBodyValidator } from '@/middlewares/json-validator';
 import { deleteUser, readUser, updateUser } from '@/services/user-storage';
-import { User } from '@/types/user';
+import { FullUser } from '@/types/user';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
@@ -43,7 +43,7 @@ export const PUT = withMiddlewares(
   async (request, { params }) => {
     try {
       const { cid } = await params;
-      const body = request.data.body as Partial<User>;
+      const body = request.data.body as Partial<FullUser>;
       const existingUser = await readUser(cid);
 
       if (!existingUser) {

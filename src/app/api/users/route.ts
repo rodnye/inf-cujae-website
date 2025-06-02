@@ -2,11 +2,11 @@ import { withMiddlewares } from '@/middlewares/lib';
 import { adminValidator } from '@/middlewares/admin-validator';
 import { jsonBodyValidator } from '@/middlewares/json-validator';
 import { createUser, listUsers } from '@/services/user-storage';
-import { User } from '@/types/user';
+import { FullUser } from '@/types/user';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
-type DataBody = User & {
+type DataBody = FullUser & {
   rpass: string;
 };
 

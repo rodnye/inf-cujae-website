@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { User } from '@/types/user';
+import { FullUser } from '@/types/user';
 import {
   createUser,
   deleteUser,
@@ -17,7 +17,9 @@ import { FaEye, FaTrash } from 'react-icons/fa6';
 
 export function UsersAdminPage() {
   const [usersCid, setUsersCid] = useState<string[]>([]);
-  const [form, setForm] = useState<User & { rpass: string }>(emptyUserFields);
+  const [form, setForm] = useState<FullUser & { rpass: string }>(
+    emptyUserFields,
+  );
   const [error, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 

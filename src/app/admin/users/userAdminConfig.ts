@@ -1,7 +1,7 @@
 import { FieldConfig } from '@/components/sections/AdminForm';
-import { User } from '@/types/user';
+import { FullUser } from '@/types/user';
 
-export const emptyUserFields: User & { rpass: string } = {
+export const emptyUserFields: FullUser & { rpass: string } = {
   cid: '',
   name: '',
   year: 0,
@@ -16,7 +16,7 @@ export const emptyUserFields: User & { rpass: string } = {
 };
 
 export const userFieldConfig: Record<
-  keyof (User & { rpass: string }),
+  keyof (FullUser & { rpass: string }),
   FieldConfig
 > = {
   cid: {
