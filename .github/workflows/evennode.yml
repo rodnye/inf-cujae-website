@@ -9,6 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -26,7 +31,7 @@ jobs:
           pnpm install
           pnpm build
           rm -rf .next/cache
-     
+
       - name: EvenNode Deploy
         uses: rodnye/evennode-deploy-action@v0.0.1-alpha
         with:
@@ -35,4 +40,4 @@ jobs:
           dot_env: ${{ secrets.DOT_ENV_CONTENT }}
           git_name: ${{ secrets.GIT_NAME }}
           git_email: ${{ secrets.GIT_EMAIL }}
-          pre_commit_command: "git add .next -f"
+          pre_commit_command: 'git add .next -f'
