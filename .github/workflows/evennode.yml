@@ -33,7 +33,7 @@ jobs:
           rm -rf .next/cache
 
       - name: EvenNode Deploy
-        uses: rodnye/evennode-deploy-action@v0.0.1-alpha
+        uses: rodnye/evennode-deploy-action@v0.0.2-alpha
         with:
           key: ${{ secrets.SSH_KEY }}
           git_url: ${{ secrets.EVENNODE_REPO_URL }}
