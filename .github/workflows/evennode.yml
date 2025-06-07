@@ -35,7 +35,7 @@ jobs:
       - name: EvenNode Deploy
         uses: rodnye/evennode-deploy-action@v0.0.1-alpha
         with:
-          key: ${{ secrets.EVENNODE_SSH_KEY }}
+          key: ${{ secrets.SSH_KEY }}
           git_url: ${{ secrets.EVENNODE_REPO_URL }}
           dot_env: ${{ secrets.DOT_ENV_CONTENT }}
           git_name: ${{ secrets.GIT_NAME }}
