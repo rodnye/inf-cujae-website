@@ -12,7 +12,7 @@ export const emptyUserFields: FullUser & { rpass: string } = {
   phone: '',
   courseType: '',
   userType: 'student',
-  gradesHistory: {},
+  gradesHistory: [],
 };
 
 export const userFieldConfig: Record<
