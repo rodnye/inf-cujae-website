@@ -4,10 +4,36 @@ const HistoryPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[--color-body] py-8 text-[--color-on-body]">
       <div className="container mx-auto px-4">
-        <h1 className="mb-12 bg-gradient-to-r from-[--color-secondary] to-amber-400 bg-clip-text text-center text-5xl font-bold tracking-tight text-transparent">
-          Historia de la CUJAE
-        </h1>
-
+        <div className="mb-12 text-center">
+          <div className="relative inline-block">
+            <div className="absolute -inset-6 rounded-full bg-gradient-to-r from-yellow-500/30 via-amber-500/30 to-yellow-500/30 blur-3xl"></div>
+            <div className="relative flex items-center justify-center gap-4">
+              <div className="rounded-full bg-gradient-to-r from-yellow-500 to-amber-500 p-4 shadow-2xl">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-10 w-10 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 0c-4.418 0-8 1.79-8 4v1h16v-1c0-2.21-3.582-4-8-4z"
+                  />
+                </svg>
+              </div>
+              <h1 className="bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-400 bg-clip-text text-4xl font-bold tracking-tight text-transparent lg:text-6xl">
+                Historia de la CUJAE
+              </h1>
+            </div>
+          </div>
+          <p className="mt-6 text-lg text-slate-400">
+            Descubre los momentos más importantes y el legado de nuestra
+            universidad.
+          </p>
+        </div>
         <section className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {/* Tarjeta 1 */}
           <div className="transform rounded-xl bg-slate-800 p-6 shadow-xl transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-red-500/50">
