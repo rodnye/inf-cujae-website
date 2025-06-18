@@ -17,11 +17,19 @@ export const LineButton: React.FC<Props> = ({
   color = 'text-on-primary',
 }) => {
   const router = useRouter();
+  const handleClick = () => {
+    if (to) {
+      router.push(to);
+    }
+    if (onClick) {
+      onClick();
+    }
+  };
 
   return (
     <div className={color}>
       <button
-        onClick={onClick || (() => to && router.push(to))}
+        onClick={handleClick}
         className={`${styles.button}`}
         disabled={disabled}
       >

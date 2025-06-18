@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/buttons/Button';
 import { ProgressBar } from '@/components/inputs/ProgressBar';
 import { TextField } from '@/components/inputs/TextField';
+import { FaDatabase } from 'react-icons/fa';
 
 export function BackupPage() {
   const [backupFile, setBackupFile] = useState<File | null>(null);
@@ -108,21 +109,33 @@ export function BackupPage() {
   };
 
   return (
-    <div className="px-4 py-8">
-      <div className="mx-auto max-w-xl">
-        <h1 className="mb-8 text-3xl font-bold">Gestión de Backups</h1>
+    <div className="min-h-screen bg-[#0b1013] p-6">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-8">
+          <div className="flex items-center gap-3">
+            <div className="rounded-lg bg-orange-500/20 p-3">
+              <FaDatabase className="h-6 w-6 text-orange-400" />
+            </div>
+            <div>
+              <h1 className="bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-3xl font-bold text-transparent">
+                Gestión de Backups
+              </h1>
+              <p className="text-slate-400">Administra y restaura backups</p>
+            </div>
+          </div>
+        </div>
 
-        {/* Descargar backup completo */}
-        <section className="mb-8 rounded-lg p-6 shadow-md">
-          <h2 className="mb-4 text-xl font-semibold">Descargar Backup</h2>
+        <section className="mb-8 rounded-xl border border-[#36454F]/50 bg-[#36454F]/20 p-6 backdrop-blur-xl">
+          <h2 className="mb-4 text-xl font-semibold text-slate-200">
+            Descargar Backup Completo
+          </h2>
           <Button onClick={handleDownloadBackup}>
             Descargar Backup Completo
           </Button>
         </section>
 
-        {/* Descargar backup específico */}
-        <section className="mb-8 rounded-lg p-6 shadow-md">
-          <h2 className="mb-4 text-xl font-semibold">
+        <section className="mb-8 rounded-xl border border-[#36454F]/50 bg-[#36454F]/20 p-6 backdrop-blur-xl">
+          <h2 className="mb-4 text-xl font-semibold text-slate-200">
             Descargar Backup Específico
           </h2>
           <TextField
@@ -136,23 +149,26 @@ export function BackupPage() {
           </Button>
         </section>
 
-        {/* Restaurar backup completo */}
-        <section className="mb-8 rounded-lg p-6 shadow-md">
-          <h2 className="mb-4 text-xl font-semibold">Restaurar Backup</h2>
+        <section className="mb-8 rounded-xl border border-[#36454F]/50 bg-[#36454F]/20 p-6 backdrop-blur-xl">
+          <h2 className="mb-4 text-xl font-semibold text-slate-200">
+            Restaurar Backup Completo
+          </h2>
           <input
             type="file"
             onChange={(e) => setBackupFile(e.target.files?.[0] || null)}
-            className="mb-4 block w-full"
+            className="mb-4 block w-full rounded-lg border border-[#36454F]/50 bg-[#36454F]/20 p-2 text-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
           {uploadProgress !== null && (
-            <ProgressBar progress={uploadProgress} className="mb-4" />
+            <ProgressBar
+              progress={uploadProgress}
+              className="mb-4 h-2 rounded-full bg-[#36454F]/50"
+            />
           )}
           <Button onClick={handleRestoreBackup}>Restaurar Backup</Button>
         </section>
 
-        {/* Restaurar backup específico */}
-        <section className="rounded-lg p-6 shadow-md">
-          <h2 className="mb-4 text-xl font-semibold">
+        <section className="rounded-xl border border-[#36454F]/50 bg-[#36454F]/20 p-6 backdrop-blur-xl">
+          <h2 className="mb-4 text-xl font-semibold text-slate-200">
             Restaurar Backup Específico
           </h2>
           <TextField
@@ -164,10 +180,13 @@ export function BackupPage() {
           <input
             type="file"
             onChange={(e) => setBackupFile(e.target.files?.[0] || null)}
-            className="mb-4 block w-full"
+            className="mb-4 block w-full rounded-lg border border-[#36454F]/50 bg-[#36454F]/20 p-2 text-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
           {uploadProgress !== null && (
-            <ProgressBar progress={uploadProgress} className="mb-4" />
+            <ProgressBar
+              progress={uploadProgress}
+              className="mb-4 h-2 rounded-full bg-[#36454F]/50"
+            />
           )}
           <Button onClick={handleRestoreSpecificBackup}>
             Restaurar Backup

@@ -38,27 +38,24 @@ export function UsersAdminPage() {
 
   useEffect(() => {
     if (!error) return;
-    alert(error);
-    setError(null);
+    alert(error); // Reverted to original alert for error messages
   }, [error]);
 
-  /**
-   * View user details
-   */
   const handleViewUser = async (cid: string) => {
-    const data = await fetchUser(cid);
-    alert(JSON.stringify(data, null, 4));
+    try {
+      const data = await fetchUser(cid);
+      alert(JSON.stringify(data, null, 4));
+    } catch (e) {
+      if (e instanceof Error) setError(e.message);
+    }
   };
 
-  /**
-   * Edit user - load user data into form
-   */
   const handleEditUser = async (cid: string) => {
     try {
       const userData = await fetchUser(cid);
       setForm({
         ...userData,
-        rpass: userData.pass, // Set repeat password to current password
+        rpass: userData.pass,
       });
       setIsEditing(true);
     } catch (e) {
@@ -66,9 +63,6 @@ export function UsersAdminPage() {
     }
   };
 
-  /**
-   * Delete user
-   */
   const handleDeleteUser = async (cid: string) => {
     const answer = confirm(
       '¿Seguro que deseas eliminar al usuario ' + cid + '?',
@@ -79,7 +73,6 @@ export function UsersAdminPage() {
         setUsersCid(usersCid.filter((user) => user !== cid));
         alert('Usuario eliminado exitosamente');
         if (isEditing && form.cid === cid) {
-          // Reset form if editing the deleted user
           resetForm();
         }
       } catch (e) {
@@ -88,17 +81,11 @@ export function UsersAdminPage() {
     }
   };
 
-  /**
-   * Reset form to initial state
-   */
   const resetForm = () => {
     setForm(emptyUserFields);
     setIsEditing(false);
   };
 
-  /**
-   * Create or update user
-   */
   const handleSubmit = async () => {
     if (form.pass !== form.rpass) {
       setError('Las contraseñas no coinciden');
@@ -121,58 +108,80 @@ export function UsersAdminPage() {
   };
 
   return (
-    <div className="w-full px-4 py-8">
-      <div className="mx-auto w-full">
-        <h1 className="mb-8 text-3xl font-bold">
-          Panel de Administración de Usuarios
-        </h1>
+    <div className="min-h-screen bg-[#0b1013] p-6">
+      <div className="mx-auto max-w-6xl">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="mb-6 flex items-center gap-4">
+            <div className="rounded-lg bg-gradient-to-r from-blue-500/20 to-cyan-500/20 p-3">
+              <FaEye className="h-8 w-8 text-blue-400" />
+            </div>
+            <div>
+              <h1 className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-3xl font-bold text-transparent">
+                Panel de Administración de Usuarios
+              </h1>
+              <p className="text-slate-400">Gestiona usuarios registrados</p>
+            </div>
+          </div>
+        </div>
 
-        <div className="flex w-full flex-col md:flex-row md:justify-stretch">
-          {/* Lista de usuarios existentes */}
-          <ListManager
-            title="Usuarios Registrados"
-            items={usersCid}
-            emptyMessage="No hay usuarios registrados"
-            actions={[
-              {
-                label: <FaEye />,
-                onClick: handleViewUser,
-              },
-              {
-                label: <FaEdit />,
-                onClick: handleEditUser,
-                color: 'text-green-500',
-              },
-              {
-                label: <FaTrash />,
-                onClick: handleDeleteUser,
-                color: 'text-red-600',
-              },
-            ]}
-            itemDisplay={(cid) => (
-              <div>
-                <span className="pr-8 font-medium">( {cid} )</span>
-              </div>
-            )}
-            className="mb-8 flex-shrink-0"
-          />
+        <div className="grid gap-8 lg:grid-cols-3">
+          {/* Lista de Usuarios */}
+          <div className="lg:col-span-2">
+            <div className="rounded-xl border border-[#36454F]/50 bg-[#36454F]/20 p-6 backdrop-blur-xl">
+              <ListManager
+                title="Usuarios Registrados"
+                items={usersCid}
+                emptyMessage="No hay usuarios registrados"
+                actions={[
+                  {
+                    label: <FaEye />,
+                    onClick: handleViewUser,
+                    color: 'text-blue-400 hover:text-blue-300',
+                  },
+                  {
+                    label: <FaEdit />,
+                    onClick: handleEditUser,
+                    color: 'text-green-500 hover:text-green-400',
+                  },
+                  {
+                    label: <FaTrash />,
+                    onClick: handleDeleteUser,
+                    color: 'text-red-600 hover:text-red-500',
+                  },
+                ]}
+                itemDisplay={(cid) => (
+                  <div>
+                    <span className="pr-8 font-medium">( {cid} )</span>
+                  </div>
+                )}
+                className="mb-8 flex-shrink-0"
+              />
+            </div>
+          </div>
 
-          {/* formulario: crear/editar usuario */}
-          <section className="flex w-full flex-col flex-wrap items-center rounded-lg p-6 shadow-md">
-            <h2 className="mb-4 text-xl font-semibold">
-              {isEditing ? 'Editar Usuario' : 'Registrar Nuevo Usuario'}
-            </h2>
-
-            <AdminForm
-              data={form}
-              onChange={(data) => setForm(data)}
-              fieldConfig={userFieldConfig}
-              onSubmit={handleSubmit}
-              onCancel={isEditing ? resetForm : undefined}
-              submitText={isEditing ? 'Actualizar' : 'Registrar'}
-              className="w-full max-w-xl rounded-lg p-6 shadow-md"
-            />
-          </section>
+          {/* Formulario: Crear/Editar Usuario */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-6">
+              <section className="rounded-xl border border-[#36454F]/50 bg-[#36454F]/20 p-6 backdrop-blur-xl">
+                <h2 className="mb-6 flex items-center gap-3 text-xl font-semibold text-slate-200">
+                  <div className="rounded-lg bg-gradient-to-r from-green-500/20 to-emerald-500/20 p-2">
+                    <FaEdit className="h-5 w-5 text-green-400" />
+                  </div>
+                  {isEditing ? 'Editar Usuario' : 'Registrar Nuevo Usuario'}
+                </h2>
+                <AdminForm
+                  data={form}
+                  onChange={(data) => setForm(data)}
+                  fieldConfig={userFieldConfig}
+                  onSubmit={handleSubmit}
+                  onCancel={isEditing ? resetForm : undefined}
+                  submitText={isEditing ? 'Actualizar' : 'Registrar'}
+                  className="w-full max-w-xl rounded-lg p-6 shadow-md"
+                />
+              </section>
+            </div>
+          </div>
         </div>
       </div>
     </div>

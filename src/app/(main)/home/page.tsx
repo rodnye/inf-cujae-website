@@ -1,7 +1,7 @@
 'use client';
 
 import { ScrollButton } from '@/components/buttons/Button';
-import { FaBook, FaToolbox, FaTrophy, FaCalendar } from 'react-icons/fa6';
+import { FaBook, FaToolbox, FaCalendar } from 'react-icons/fa6';
 import { BlogGrid } from '@/components/sections/BlogGrid';
 import { HeroCard } from './HeroCard';
 // import { AuthButton } from '@/components/auth/AuthButton'; // Eliminado
@@ -78,12 +78,6 @@ export default function HomePage() {
             text: 'Eventos',
             scrollTo: 'events',
             delay: 1.0,
-          },
-          {
-            icon: <FaTrophy />,
-            text: 'Calificaciones',
-            scrollTo: 'grades',
-            delay: 1.1,
           },
         ].map((btn) => (
           <motion.div

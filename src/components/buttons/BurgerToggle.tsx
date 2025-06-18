@@ -1,19 +1,14 @@
-'use client';
-import { useState } from 'react';
 import styles from './BurgerToggle.module.css';
 
 interface Props {
+  isActive: boolean;
   onClick?: (isActive: boolean) => void;
 }
 
-export const BurgerToggle: React.FC<Props> = ({ onClick }) => {
-  const [active, setActive] = useState(false);
-
+export const BurgerToggle: React.FC<Props> = ({ isActive, onClick }) => {
   const handleClick = () => {
-    const newActiveState = !active;
-    setActive(newActiveState);
     if (onClick) {
-      onClick(newActiveState);
+      onClick(!isActive);
     }
   };
 
@@ -24,7 +19,7 @@ export const BurgerToggle: React.FC<Props> = ({ onClick }) => {
         id="toggle"
         type="checkbox"
         onChange={handleClick}
-        checked={active}
+        checked={isActive}
       />
       <label className={styles.burger} htmlFor="toggle">
         <div className={styles.bar} />
