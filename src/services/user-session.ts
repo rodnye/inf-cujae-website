@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import { connectRedis, disconnectRedis } from './redis-storage';
 import { readUser } from './user-storage';
 import { FullUser } from '@/types/user';
+import { NextRequest } from 'next/server';
 
 // duración de la sesion
 const SESSION_DURATION_MS = 24 * 60 * 60 * 1000;
@@ -128,13 +129,12 @@ export const destroyUserSession = async () => {
 /**
  * obtener el usuario autenticado actualmente
  */
-export const getCurrentUser = async () => {
+export const getCurrentUser = async (req: NextRequest) => {
   let token = (await cookies()).get('user-token')?.value;
   if (!token) {
     // si no hay token, verificar en la cabecera de la solicitud (solo para admin)
-    const headers = new Headers();
-    if (headers.get('Admin-Token') === process.env.ADMIN_PASS) {
-      token = headers.get('Authorization')?.replace('Bearer ', '');
+    if (req.headers.get('Admin-Token') === process.env.ADMIN_PASS) {
+      token = req.headers.get('Authorization')?.replace('Bearer ', '');
     }
   }
   return token ? await verifyUserSession(token) : null;

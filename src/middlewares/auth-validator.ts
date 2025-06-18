@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import { Middleware } from './lib';
 
 export const authValidator = (): Middleware => async (req) => {
-  const user = await getCurrentUser();
+  const user = await getCurrentUser(req);
 
   if (!user) {
     return {
