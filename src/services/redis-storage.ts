@@ -28,6 +28,6 @@ export const connectRedis = async () => {
 };
 
 export const disconnectRedis = async () => {
-  await redis!.quit();
-  redis = null;
+  //await redis!.quit();
+  //redis = null;
 };
