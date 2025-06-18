@@ -1,6 +1,6 @@
 import Redis from 'ioredis';
 
-let redis: Redis;
+let redis: Redis | null;
 
 export const connectRedis = async () => {
   if (!redis) {
@@ -11,10 +11,9 @@ export const connectRedis = async () => {
       password: process.env.REDIS_PASS || undefined,
       db: Number(process.env.REDIS_DB) || 0,
     });
-
     return new Promise<Redis>((resolve, reject) => {
-      redis.on('ready', () => resolve(redis));
-      redis.on('error', (err) => {
+      redis!.on('ready', () => resolve(redis!));
+      redis!.on('error', (err) => {
         console.error('❌ Error de conexión a Redis:', err);
         reject();
       });
@@ -30,4 +29,5 @@ export const connectRedis = async () => {
 
 export const disconnectRedis = async () => {
   await redis!.quit();
+  redis = null;
 };
