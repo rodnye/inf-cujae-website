@@ -129,7 +129,14 @@ export const destroyUserSession = async () => {
  * obtener el usuario autenticado actualmente
  */
 export const getCurrentUser = async () => {
-  const token = (await cookies()).get('user-token')?.value;
+  let token = (await cookies()).get('user-token')?.value;
+  if (!token) {
+    // si no hay token, verificar en la cabecera de la solicitud (solo para admin)
+    const headers = new Headers();
+    if (headers.get('Admin-Token') === process.env.ADMIN_PASS) {
+      token = headers.get('Authorization')?.replace('Bearer ', '');
+    }
+  }
   return token ? await verifyUserSession(token) : null;
 };
 
