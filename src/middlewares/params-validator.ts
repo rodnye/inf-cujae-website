@@ -8,7 +8,7 @@ export const paramsValidator =
   (arg: string | string[]): Middleware =>
   async (_, extra) => {
     const params = await extra.params;
-    const data: Record<string, string> = {};
+    const data: Record<string, string | string[]> = {};
     const requestedParams = typeof arg == 'string' ? [arg] : arg;
 
     for (const key of requestedParams) {

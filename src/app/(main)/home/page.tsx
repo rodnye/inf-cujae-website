@@ -11,6 +11,7 @@ import { useRef } from 'react';
 import blogImg from '@/assets/blog-whale-01.png';
 import eventsImg from '@/assets/events-whale.png';
 import matsImg from '@/assets/materials-whale.png';
+import historyImg from '@/assets/history-whale.png';
 
 export default function HomePage() {
   // Referencias para elementos que usarán inView
@@ -146,6 +147,14 @@ export default function HomePage() {
               description:
                 'Calendario de eventos, conferencias y actividades importantes',
               url: 'events',
+            },
+            {
+              id: 'history',
+              title: 'Historia',
+              image: historyImg.src,
+              description:
+                'Un recorrido por los inicios y fundación de la CUJAE. No podemos decir que estudiamos en una universidad si no sabemos su historia.',
+              url: 'history',
             },
           ].map((card, index) => (
             <motion.div

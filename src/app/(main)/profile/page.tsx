@@ -5,7 +5,7 @@ import { AcademicDataCard } from './AcademicDataCard';
 import { PersonalDataCard } from './PersonalDataCard';
 
 const mockUser = {
-  name: 'Juan Pérez',
+  name: 'Rodny Estrada',
   avatar: avatarLogo.src,
   carrera: 'Ingeniería Informática',
   year: '3er Año',
@@ -27,71 +27,50 @@ const mockGradesByYear = [
     year: '1er Año',
     subjects: [
       {
-        asignatura: 'Matemática Discreta',
-        nota: 5,
+        subject: 'Matemática Discreta',
+        grade: 5,
       },
       {
-        asignatura: 'Introducción a la Programación',
-        nota: 2,
+        subject: 'Introducción a la Programación',
+        grade: 2,
       },
-      { asignatura: 'Calculo 1', nota: 3 },
-      { asignatura: 'DIP', nota: 2 },
+      { subject: 'Calculo 1', grade: 3 },
+      { subject: 'DIP', grade: 2 },
     ],
   },
   {
     year: '2do Año',
     subjects: [
       {
-        asignatura: 'Estructuras de Datos',
-        nota: 4,
+        subject: 'Estructuras de Datos',
+        grade: 4,
       },
-      { asignatura: 'Bases de Datos', nota: 2 },
+      { subject: 'Bases de Datos', grade: 2 },
       {
-        asignatura: 'Matemática Computacional',
-        nota: 5,
+        subject: 'Matemática Computacional',
+        grade: 5,
       },
-      { asignatura: 'Historia', nota: 5 },
+      { subject: 'Historia', grade: 5 },
     ],
   },
   {
     year: '3er Año',
     subjects: [
       {
-        asignatura: 'Programación Web',
-        nota: 5,
+        subject: 'Programación Web',
+        grade: 5,
       },
       {
-        asignatura: 'Sistemas Operativos',
-        nota: 3,
+        subject: 'Sistemas Operativos',
+        grade: 3,
       },
       {
-        asignatura: 'Redes de Computadoras',
-        nota: 3,
+        subject: 'Redes de Computadoras',
+        grade: 3,
       },
       {
-        asignatura: 'Ingeniería de Software',
-        nota: 4,
-      },
-    ],
-  },
-  {
-    year: '4to Año',
-    subjects: [
-      {
-        asignatura: '123231',
-        nota: 5,
-      },
-      {
-        asignatura: 'Tesiiiii',
-        nota: 3,
-      },
-      {
-        asignatura: 'El chicleeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-        nota: 3,
-      },
-      {
-        asignatura: 'Ingeniería de Software',
-        nota: 4,
+        subject: 'Ingeniería de Software',
+        grade: 4,
       },
     ],
   },

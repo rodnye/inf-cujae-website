@@ -1,15 +1,10 @@
 'use client';
 
+import { GradeHistory } from '@/types/user';
 import { useEffect, useState } from 'react';
 
 interface GradesHistoryCardProps {
-  gradesByYear: {
-    year: string;
-    subjects: {
-      asignatura: string;
-      nota: number;
-    }[];
-  }[];
+  gradesByYear: GradeHistory[];
 }
 
 export function GradesHistoryCard({ gradesByYear }: GradesHistoryCardProps) {
@@ -103,23 +98,23 @@ export function GradesHistoryCard({ gradesByYear }: GradesHistoryCardProps) {
               <tbody>
                 {selectedBlock.subjects.map((subject, idx) => (
                   <tr
-                    key={subject.asignatura}
+                    key={subject.subject}
                     className={`hover:bg-secondary/10 border-b transition-all duration-300 last:border-0 ${tableVisible ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'}`}
                     style={{ transitionDelay: `${300 + idx * 100}ms` }}
                   >
-                    <td className="px-2 py-3">{subject.asignatura}</td>
+                    <td className="px-2 py-3">{subject.subject}</td>
                     <td className="w-32 px-2 py-3 text-center">
                       <span
                         className={`inline-flex items-center justify-center font-medium ${
-                          subject.nota >= 4
+                          subject.grade >= 4
                             ? 'text-green-600'
-                            : subject.nota >= 3
+                            : subject.grade >= 3
                               ? 'text-blue-600'
                               : 'text-yellow-600'
                         }`}
                       >
-                        {subject.nota}
-                        {subject.nota >= 4 && (
+                        {subject.grade}
+                        {subject.grade >= 4 && (
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="ml-1 h-4 w-4 text-green-500"

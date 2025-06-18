@@ -1,3 +1,11 @@
+export type GradeHistory = {
+  year: string;
+  subjects: {
+    subject: string;
+    grade: number;
+  }[];
+};
+
 export type User = {
   cid: string;
   name: string;
@@ -5,17 +13,14 @@ export type User = {
   email?: string;
   address?: string;
   phone?: string;
+
   // tipo de curso
   courseType?: string;
-  // tipo de usuario: alumno, profesor, admin
+
   userType?: 'student' | 'teacher' | 'admin';
+
   // historial de calificaciones por año
-  gradesHistory?: {
-    [year: string]: {
-      subject: string;
-      grade: number;
-    }[];
-  };
+  gradesHistory?: GradeHistory[];
 };
 
 export type FullUser = User & {
