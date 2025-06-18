@@ -5,10 +5,10 @@ import { Middleware } from './lib';
  * Este middleware verifica y obtiene el valor de los params route indicados (ej: /api/blog/[slug])
  */
 export const paramsValidator =
-  (arg: string | string[]): Middleware =>
+  (arg: string): Middleware =>
   async (_, extra) => {
     const params = await extra.params;
-    const data: Record<string, string | string[]> = {};
+    const data: Record<string, string> = {};
     const requestedParams = typeof arg == 'string' ? [arg] : arg;
 
     for (const key of requestedParams) {

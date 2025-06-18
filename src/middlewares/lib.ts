@@ -17,7 +17,7 @@ export type MiddlewareResponse =
     };
 
 type ExtraProps = {
-  params: Promise<Record<string, string | string[]>>;
+  params: Promise<Record<string, string>>;
 };
 export type RequestHandler = (
   r: MiddlewareRequest,
