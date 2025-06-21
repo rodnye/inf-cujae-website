@@ -1,7 +1,7 @@
-import { Navbar } from '@/components/sections/Navbar';
+import { Navbar } from '@/features/ui/layout/Navbar';
 import Image from 'next/image';
 import error404Img from '@/assets/error_404.png';
-import { Button } from '@/components/buttons/Button';
+import { Button } from '@/features/ui/buttons/Button';
 import { CookiesProvider } from 'next-client-cookies/server';
 
 export default function NotFound() {

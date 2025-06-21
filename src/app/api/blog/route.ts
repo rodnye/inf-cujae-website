@@ -1,15 +1,15 @@
 import { withMiddlewares } from '@/middlewares/lib';
 import {
-  listBlogEntries,
+  listArticles,
   listEventEntries,
-  readBlogEntry,
-  readShortBlogEntry,
-} from '@/services/blog-storage';
+} from '@/features/blog/server/list-articles';
+import { readShortArticle } from '@/features/blog/server/read-article';
+import { readArticle } from '@/features/blog/server/read-article';
 import { NextResponse } from 'next/server';
 import { adminValidator } from '@/middlewares/admin-validator';
 import { jsonBodyValidator } from '@/middlewares/json-validator';
-import { createBlogEntry } from '@/services/blog-storage';
-import { BlogEntry } from '@/types/blog-entry';
+import { createArticle } from '@/features/blog/server/create-article';
+import { Article } from '@/types/blog-entry';
 import { coerce, z } from 'zod';
 import { searchParamsValidator } from '@/middlewares/search-params-validator';
 
@@ -32,9 +32,7 @@ export const GET = withMiddlewares(
       only_events?: 'true';
     };
 
-    const list = !only_events
-      ? await listBlogEntries()
-      : await listEventEntries();
+    const list = !only_events ? await listArticles() : await listEventEntries();
 
     if (format == 'slugs') {
       return NextResponse.json({
@@ -47,9 +45,9 @@ export const GET = withMiddlewares(
       list.slice(0, limit).map(async (slug) => {
         const entry =
           format == 'entries'
-            ? await readBlogEntry(slug)
+            ? await readArticle(slug)
             : // si es short_entries
-              await readShortBlogEntry(slug);
+              await readShortArticle(slug);
 
         return {
           slug,
@@ -94,7 +92,7 @@ export const POST = withMiddlewares(
     ),
   ],
   async (request) => {
-    const slug = await createBlogEntry(request.data.body as BlogEntry);
+    const slug = await createArticle(request.data.body as Article);
 
     return NextResponse.json(
       {

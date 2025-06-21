@@ -1,5 +1,5 @@
 // @/middlewares/auth-validator.ts
-import { getCurrentUser } from '@/services/user-session';
+import { getCurrentUser } from '@/features/profile/server/user-session';
 import { NextResponse } from 'next/server';
 import { Middleware } from './lib';
 

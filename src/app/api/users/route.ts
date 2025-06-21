@@ -1,7 +1,7 @@
 import { withMiddlewares } from '@/middlewares/lib';
 import { adminValidator } from '@/middlewares/admin-validator';
 import { jsonBodyValidator } from '@/middlewares/json-validator';
-import { createUser, listUsers } from '@/services/user-storage';
+import { createUser, listUsers } from '@/features/profile/server/user-storage';
 import { FullUser } from '@/types/user';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';

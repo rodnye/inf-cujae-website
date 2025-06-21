@@ -1,8 +1,8 @@
 //import { UserProfileCard } from './UserProfileCard';
-import { GradesHistoryCard } from './GradeHistoryCard';
+import { GradesHistoryCard } from '@/features/profile/ui/GradeHistoryCard';
+import { AcademicDataCard } from '@/features/profile/ui/AcademicDataCard';
+import { PersonalDataCard } from '@/features/profile/ui/PersonalDataCard';
 import avatarLogo from '@/assets/profile_pic.png';
-import { AcademicDataCard } from './AcademicDataCard';
-import { PersonalDataCard } from './PersonalDataCard';
 
 const mockUser = {
   name: 'Rodny Estrada',

@@ -4,10 +4,10 @@ import { useLayoutEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Lottie from 'lottie-react';
 import orcaMascotAnimation from '@/assets/orca_mascot.json';
-import { TextField } from '@/components/inputs/TextField';
-import { Button } from '@/components/buttons/Button';
+import { TextField } from '@/features/ui/inputs/TextField';
+import { Button } from '@/features/ui/buttons/Button';
 import { useUserStore } from '@/store/user';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/features/login/use-auth';
 
 export default function LoginPage() {
   const [cid, setCid] = useState('');
