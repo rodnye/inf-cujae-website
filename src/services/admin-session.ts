@@ -2,7 +2,7 @@
 
 import { randomUUID } from 'crypto';
 import { cookies } from 'next/headers';
-import { connectRedis, disconnectRedis } from './redis-storage';
+import { connectRedis, disconnectRedis } from '@/features/shared/redis-storage';
 
 /**
  * Verificar API Key de administrador

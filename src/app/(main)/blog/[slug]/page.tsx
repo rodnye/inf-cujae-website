@@ -1,14 +1,14 @@
 import { notFound } from 'next/navigation';
-import { withParams } from '../../_hocs/params';
-import { readBlogEntry } from '@/services/blog-storage';
-import { BlogEntryPage } from './BlogEntryPage';
+import { withParams } from '@/features/ui/hocs/params';
+import { readArticle } from '@/features/blog/server/read-article';
+import { BlogContent } from '@/features/blog/ui/BlogContent';
 
 export default withParams(['slug'] as const, async ({ params }) => {
-  const post = await readBlogEntry(params.slug);
+  const post = await readArticle(params.slug);
 
   if (!post) {
     return notFound();
   }
 
-  return <BlogEntryPage post={post} />;
+  return <BlogContent post={post} />;
 });

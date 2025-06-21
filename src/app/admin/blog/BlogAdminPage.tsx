@@ -1,16 +1,17 @@
 'use client';
+
 import { useEffect, useState } from 'react';
-import { BlogEntry } from '@/types/blog-entry';
+import { Article } from '@/types/blog-entry';
 import {
-  createBlogEntry,
-  deleteBlogEntry,
-  fetchBlogEntries,
-  fetchBlogEntry,
-  uploadBlogCover,
-} from '../_services/blog-api';
-import { AdminForm } from '@/components/sections/AdminForm';
-import { blogFieldConfig, emptyBlogFields } from './blogAdminConfig';
-import { ListManager } from '@/components/sections/ListManager';
+  createArticle,
+  deleteArticle,
+  fetchArticles,
+  fetchArticle,
+  uploadCover,
+} from '@/features/blog/services/api';
+import { AdminForm } from '@/features/ui/sections/AdminForm';
+import { blogFieldConfig, emptyBlogFields } from './blog-form.config';
+import { ListManager } from '@/features/ui/sections/ListManager';
 import {
   FaEye,
   FaTrash,
@@ -21,17 +22,17 @@ import {
 import { EventEntry } from '@/types/event-entry';
 
 export function BlogAdminPage() {
-  const [blogEntries, setBlogEntries] = useState<string[]>([]);
-  const [form, setForm] = useState<BlogEntry>({ ...emptyBlogFields });
+  const [Articles, setArticles] = useState<string[]>([]);
+  const [form, setForm] = useState<Article>({ ...emptyBlogFields });
   const [error, setError] = useState<string | null>(null);
   const [reloadTrigger, setReloadTrigger] = useState(0);
 
   useEffect(() => {
     (async () => {
       try {
-        const data = await fetchBlogEntries();
+        const data = await fetchArticles();
         alert(data.message);
-        setBlogEntries(data.slugs);
+        setArticles(data.slugs);
       } catch (e) {
         if (e instanceof Error) {
           setError(e.message);
@@ -46,7 +47,7 @@ export function BlogAdminPage() {
   }, [error]);
 
   const handlePreviewEntry = async (slug: string) => {
-    const data = await fetchBlogEntry(slug);
+    const data = await fetchArticle(slug);
     alert(JSON.stringify(data, null, 4));
   };
 
@@ -56,7 +57,7 @@ export function BlogAdminPage() {
     );
     if (answer) {
       try {
-        const data = await deleteBlogEntry(slug);
+        const data = await deleteArticle(slug);
         setReloadTrigger((prev) => prev + 1);
         alert(data.message);
       } catch (e) {
@@ -73,7 +74,7 @@ export function BlogAdminPage() {
       if (fileInput.files && fileInput.files[0]) {
         const file = fileInput.files[0];
         try {
-          const result = await uploadBlogCover(slug, file);
+          const result = await uploadCover(slug, file);
           alert(result.message || 'Imagen de portada subida exitosamente');
         } catch (e) {
           if (e instanceof Error) setError(e.message);
@@ -87,7 +88,7 @@ export function BlogAdminPage() {
   const handleSubmit = async () => {
     try {
       form.tags.shift(); // remove the first input tag
-      const result = await createBlogEntry(form);
+      const result = await createArticle(form);
       alert(result.message || 'Entrada de blog creada exitosamente');
       setReloadTrigger((prev) => prev + 1);
 
@@ -131,7 +132,7 @@ export function BlogAdminPage() {
             <div className="rounded-xl border border-[#36454F]/50 bg-[#36454F]/20 p-6 backdrop-blur-xl">
               <ListManager
                 title="Entradas Existentes"
-                items={blogEntries}
+                items={Articles}
                 emptyMessage="No hay artículos disponibles"
                 actions={[
                   {
@@ -180,14 +181,14 @@ export function BlogAdminPage() {
         <div className="mt-12 grid gap-4 md:grid-cols-3">
           <div className="rounded-lg border border-[#36454F]/50 bg-[#36454F]/20 p-4 text-center backdrop-blur-xl">
             <div className="text-2xl font-bold text-purple-400">
-              {blogEntries.length}
+              {Articles.length}
             </div>
             <div className="text-sm text-slate-400">Total de Artículos</div>
           </div>
 
           <div className="rounded-lg border border-[#36454F]/50 bg-[#36454F]/20 p-4 text-center backdrop-blur-xl">
             <div className="text-2xl font-bold text-green-400">
-              {blogEntries.filter((entry) => entry.length > 0).length}
+              {Articles.filter((entry) => entry.length > 0).length}
             </div>
             <div className="text-sm text-slate-400">Artículos Publicados</div>
           </div>

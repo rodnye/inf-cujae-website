@@ -1,5 +1,5 @@
-import { Footer } from '@/components/sections/Footer';
-import { Navbar } from '@/components/sections/Navbar';
+import { Footer } from '@/features/ui/layout/Footer';
+import { Navbar } from '@/features/ui/layout/Navbar';
 import { CookiesProvider } from 'next-client-cookies/server';
 
 export default function Layout({

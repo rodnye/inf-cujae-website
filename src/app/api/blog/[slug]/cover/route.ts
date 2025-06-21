@@ -5,10 +5,8 @@ import {
   fileSchema,
 } from '@/middlewares/formdata-validator';
 import { paramsValidator } from '@/middlewares/params-validator';
-import {
-  readBlogCoverImage,
-  saveBlogCoverImage,
-} from '@/services/blog-storage';
+import { saveArticleCover } from '@/features/blog/server/save-cover';
+import { readCoverImage } from '@/features/blog/server/read-cover';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
@@ -16,7 +14,7 @@ export const GET = withMiddlewares(
   [paramsValidator('slug')],
   async ({ data: { params } }) => {
     const blogId = params.slug as string;
-    const buffer = await readBlogCoverImage(blogId);
+    const buffer = await readCoverImage(blogId);
 
     if (!buffer) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
@@ -45,7 +43,7 @@ export const POST = withMiddlewares(
 
     try {
       const buffer = Buffer.from(await coverFile.arrayBuffer());
-      await saveBlogCoverImage(slug, buffer);
+      await saveArticleCover(slug, buffer);
 
       return NextResponse.json({
         message: 'Imagen de portada subida exitosamente.',

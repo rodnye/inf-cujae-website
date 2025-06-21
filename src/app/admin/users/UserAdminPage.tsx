@@ -8,10 +8,10 @@ import {
   fetchUsers,
   fetchUser,
   updateUser,
-} from '../_services/user-api';
-import { AdminForm } from '@/components/sections/AdminForm';
-import { emptyUserFields, userFieldConfig } from './userAdminConfig';
-import { ListManager } from '@/components/sections/ListManager';
+} from '@/features/profile/api';
+import { AdminForm } from '@/features/ui/sections/AdminForm';
+import { emptyUserFields, userFieldConfig } from './user-form.config';
+import { ListManager } from '@/features/ui/sections/ListManager';
 import { FaEdit } from 'react-icons/fa';
 import { FaEye, FaTrash } from 'react-icons/fa6';
 

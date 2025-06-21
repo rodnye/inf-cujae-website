@@ -9,10 +9,10 @@ export type BlogFrontmatter = {
   | { isEvent: true; startDate?: Date; expireDate: Date }
 );
 
-export type BlogEntry = BlogFrontmatter & {
+export type Article = BlogFrontmatter & {
   content: string;
 };
 
-export type ShortBlogEntry = BlogFrontmatter & {
+export type ShortArticle = BlogFrontmatter & {
   description: string;
 };

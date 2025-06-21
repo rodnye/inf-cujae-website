@@ -3,7 +3,7 @@ import { jsonBodyValidator } from '@/middlewares/json-validator';
 import {
   createUserSession,
   verifyUserCredentials,
-} from '@/services/user-session';
+} from '@/features/profile/server/user-session';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 

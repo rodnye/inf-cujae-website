@@ -5,10 +5,10 @@ import {
   uploadMaterial,
   fetchMaterials,
   deleteMaterial,
-} from '../_services/mats-api';
-import { Button } from '@/components/buttons/Button';
-import { ProgressBar } from '@/components/inputs/ProgressBar';
-import { ListManager } from '@/components/sections/ListManager';
+} from '../../../features/mats/api';
+import { Button } from '@/features/ui/buttons/Button';
+import { ProgressBar } from '@/features/ui/feedback/ProgressBar';
+import { ListManager } from '@/features/ui/sections/ListManager';
 
 export function MatsAdminPage() {
   const [materials, setMaterials] = useState<string[]>([]);

@@ -1,4 +1,4 @@
-import { slugify } from '@/utils/slugify';
+import { slugify } from '@/features/utils/slugify';
 import { access, mkdir, readdir, readFile, unlink, writeFile } from 'fs-extra';
 import path from 'path';
 

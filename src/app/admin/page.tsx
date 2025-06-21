@@ -1,5 +1,5 @@
-import { Button } from '@/components/buttons/Button';
-import { withAdminSession } from './_hocs/admin-session';
+import { Button } from '@/features/ui/buttons/Button';
+import { withAdminSession } from '@/features/ui/hocs/admin-session';
 import { FaBookAtlas, FaUsers, FaCubes, FaDatabase } from 'react-icons/fa6';
 import { FaShieldAlt } from 'react-icons/fa';
 

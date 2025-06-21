@@ -1,6 +1,6 @@
-'use client'; // Necesario para usar hooks de React como useState y useEffect
+'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import {
   FaFolder,
   FaFilePdf,
@@ -188,7 +188,7 @@ const MatsPage: React.FC = () => {
           aria-label="Breadcrumb"
         >
           {breadcrumbs.map((crumb, index) => (
-            <React.Fragment key={crumb.id || 'root'}>
+            <Fragment key={crumb.id || 'root'}>
               {index > 0 && (
                 <FaChevronRight className="h-3 w-3 text-slate-500" />
               )}
@@ -202,7 +202,7 @@ const MatsPage: React.FC = () => {
                   crumb.name
                 )}
               </button>
-            </React.Fragment>
+            </Fragment>
           ))}
         </nav>
 

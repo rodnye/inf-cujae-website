@@ -1,6 +1,4 @@
-import React from 'react';
-
-const HistoryPage: React.FC = () => {
+export default function HistoryPage() {
   return (
     <div className="min-h-screen bg-[--color-body] py-8 text-[--color-on-body]">
       <div className="container mx-auto px-4">
@@ -157,7 +155,7 @@ const HistoryPage: React.FC = () => {
             <p className="mt-4 leading-relaxed text-slate-300">
               <strong className="font-semibold text-indigo-300">
                 Indicadores QS:
-              </strong>{' '}
+              </strong>
               QS utiliza ocho indicadores para calcular la puntuación de cada
               universidad. Estos indicadores miden la posición global en la
               comunidad académica, la productividad de la investigación, su
@@ -216,7 +214,7 @@ const HistoryPage: React.FC = () => {
                 métodos empleados y a los criterios utilizados.
               </p>
               <p className="mb-1 text-sm text-slate-400">
-                <strong>Página Web:</strong>{' '}
+                <strong>Página Web:</strong>
                 <a
                   href="https://www.topuniversities.com/university-rankings"
                   target="_blank"
@@ -273,7 +271,7 @@ const HistoryPage: React.FC = () => {
                 continuo de las instituciones...
               </p>
               <p className="mb-1 text-sm text-slate-400">
-                <strong>Página Web:</strong>{' '}
+                <strong>Página Web:</strong>
                 <a
                   href="https://www.scimagoir.com/"
                   target="_blank"
@@ -329,7 +327,7 @@ const HistoryPage: React.FC = () => {
                 Consejo Superior de Investigaciones Científicas (CSIC)...
               </p>
               <p className="mb-1 text-sm text-slate-400">
-                <strong>Página Web:</strong>{' '}
+                <strong>Página Web:</strong>
                 <a
                   href="https://www.webometrics.info/es"
                   target="_blank"
@@ -382,7 +380,7 @@ const HistoryPage: React.FC = () => {
                 Académico de cada universidad...
               </p>
               <p className="mb-1 text-sm text-slate-400">
-                <strong>Página Web:</strong>{' '}
+                <strong>Página Web:</strong>
                 <a
                   href="https://www.webometrics.info/en/transparent"
                   target="_blank"
@@ -425,6 +423,4 @@ const HistoryPage: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default HistoryPage;
+}

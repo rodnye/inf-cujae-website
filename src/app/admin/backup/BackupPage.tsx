@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/buttons/Button';
-import { ProgressBar } from '@/components/inputs/ProgressBar';
-import { TextField } from '@/components/inputs/TextField';
+import { Button } from '@/features/ui/buttons/Button';
+import { ProgressBar } from '@/features/ui/feedback/ProgressBar';
+import { TextField } from '@/features/ui/inputs/TextField';
 import { FaDatabase } from 'react-icons/fa';
 
 export function BackupPage() {

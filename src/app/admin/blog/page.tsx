@@ -1,4 +1,4 @@
-import { withAdminSession } from '../_hocs/admin-session';
-import { BlogAdminPage } from './BlogAdminPage';
+import { withAdminSession } from '@/features/ui/hocs/admin-session';
+import { BlogAdminPage } from '@/app/admin/blog/BlogAdminPage';
 
 export default withAdminSession(BlogAdminPage);
